@@ -1,9 +1,15 @@
-def load_dataset():
-    return
+import os
+import cv2
 
-import kagglehub
 
-# Download latest version
-path = kagglehub.dataset_download("obulisainaren/multi-cancer/multi cancer/Cervical Cancer")
+def load_dataset(path):
+    dataset = {}
+    for root, dirs, files in os.walk(path):
+        for dir_name in dirs:
+            folder_path = os.path.join(root, dir_name)
+            images = [os.path.join(folder_path, file) for file in os.listdir(folder_path) if cv2.imread(os.path.join(folder_path, file)) is not None]
+            dataset[dir_name] = images
+    return dataset
 
-print("Path to dataset files:", path)
+# print(load_dataset('data/Cervical_Cancer'))
+    
