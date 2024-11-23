@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 
 def load_dataset(path):
     try:
-        with open('data/Cervical_Cancer/dataset.pkl', 'rb') as f:
+        with open('data/dataset.pkl', 'rb') as f:
             dataset = pickle.load(f)
     except:
 
@@ -18,7 +18,7 @@ def load_dataset(path):
                 images = [os.path.join(folder_path, file) for file in os.listdir(folder_path)
                     if cv2.imread(os.path.join(folder_path, file)) is not None]
                 dataset[dir_name] = images
-        with open('data/Cervical_Cancer/dataset.pkl', 'wb') as f:
+        with open('data/dataset.pkl', 'wb') as f:
             pickle.dump(dataset, f)
     return dataset
 
