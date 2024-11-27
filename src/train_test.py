@@ -1,13 +1,13 @@
-from load_dataset import *
+from load_dataset_copy import *
 from sklearn import linear_model, svm
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-from sklearn.tree import DecissionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import GridSearchCV
-
+import numpy as np
 
 
 def train_linear_regression(X_train, y_train):
-    lr = linear_model.LinearRegression(fit_intercept=True, normalize=False, copy_X=True)
+    lr = linear_model.LinearRegression()
     lr.fit(X_train, y_train)
 
     return lr
@@ -25,7 +25,7 @@ def train_svc(X_train, y_train, c=1.0, kernel="rbf", classificador="ovr"):
     return svc
 
 def random_forest(X_train, y_train):
-    rf = DecissionTreeClassifier(random_state=42)
+    rf = DecisionTreeClassifier(random_state=42)
     
     #Això no sé segur
     # parameters= {'criterion':['entropy', 'gini'],'max_depth' : [2,4,6,8,10,12]  ,'splitter':["best","random"],'min_samples_split':[2,3,4,6,7]}
@@ -42,7 +42,7 @@ def tree_pruning(rf, X_train, y_train):
 
     clfs = []
     for ccp_alpha in ccp_alphas:
-        clf = DecissionTreeClassifier(random_state=42, ccp_alpha=ccp_alpha)
+        clf = DecisionTreeClassifier(random_state=42, ccp_alpha=ccp_alpha)
         clf.fit(X_train, y_train)
         clfs.append(clf)
 
@@ -64,19 +64,29 @@ def prediccio_tests(model, X_test, y_test):
 
 def main():
     data = load_dataset('data/Cervical_Cancer')
-    train_set, val_set, test_set = train_test(data)
-    
-    #Falta funció per separar X, y
-
-    # X_train, y_train = load_images(train_set)
-    # X_val, y_val = load_images(val_set)
-    # X_test, y_test = load_images(test_set)
-    
+    X_train, y_train, X_val, y_val, X_test, y_test = train_test(data)
+    print(y_train)
+    X_train = np.array(X_train)
+    X_val = np.array(X_val)
+    X_test = np.array(X_test)
+    X_train = X_train.reshape(X_train.shape[0], -1)
+    X_val = X_val.reshape(X_val.shape[0], -1)
+    X_test = X_test.reshape(X_test.shape[0], -1)
+    models = ["train_linear_regression", "train_logistic_regression", "train_svc", "random_forest"]
     # model = train_linear_regression(X_train, y_train)
     # model = train_logistic_regression(X_train, y_train)
     # model = train_svc(X_train, y_train)
     # model = random_forest(X_train, y_train)
     # model = tree_pruning(model, X_train, y_train)
+    for m in models:
+        print(m)
+        model = eval(m)(X_train, y_train)
+        print(m)
+        print(validation(model, X_val, y_val))
+        print(prediccio_tests(model, X_test, y_test))
     
     # validation(model, X_val, y_val)
     # prediccio_tests(model, X_test, y_test)
+
+if __name__ == "__main__":
+    main()
