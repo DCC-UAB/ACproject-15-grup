@@ -23,7 +23,9 @@ def load_dataset(path):
     return dataset
 
 def train_test(dataset, train_size=0.6, test_size=0.2, val_size=0.2):
-    train, val, test = {}, {}, {}
+    X_train, y_train = [], []
+    X_val, y_val = [], []
+    X_test, y_test = [], []
     
     for class_name, images in dataset.items():
         # Dividir el conjunt entre dades d'entrenament i (validació + test)
@@ -32,17 +34,23 @@ def train_test(dataset, train_size=0.6, test_size=0.2, val_size=0.2):
         # Dividir el conjunt (validació + test) entre dades de validació i test
         val_images, test_images = train_test_split(temp_images, test_size=test_size / (val_size + test_size), random_state=42)
         
-        train[class_name] = train_images
-        val[class_name] = val_images
-        test[class_name] = test_images
+        X_train.extend(train_images)
+        y_train.extend([class_name] * len(train_images))
+        
+        X_val.extend(val_images)
+        y_val.extend([class_name] * len(val_images))
+        
+        X_test.extend(test_images)
+        y_test.extend([class_name] * len(test_images))
     
-    return train, val, test
+    return X_train, y_train, X_val, y_val, X_test, y_test
 
 
 
 
 # data = load_dataset('data/Cervical_Cancer')
-# train_set, val_set, test_set = train_test(data)
-# print(test_set)
+# X_train, y_train, X_val, y_val, X_test, y_test = train_test(data)
+# for x, y in zip(X_train, y_train):
+#     print("Imatge:", x, "Tipus de cancer:", y)
 
     
