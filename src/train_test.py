@@ -1,4 +1,4 @@
-from load_dataset_copy import *
+from load_dataset import *
 from sklearn import linear_model, svm
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.tree import DecisionTreeClassifier
@@ -73,6 +73,12 @@ def main():
     X_val = X_val.reshape(X_val.shape[0], -1)
     X_test = X_test.reshape(X_test.shape[0], -1)
     models = ["train_linear_regression", "train_logistic_regression", "train_svc", "random_forest"]
+    
+    X_train = preprocess_images(X_train)
+    X_val = preprocess_images(X_val)
+    X_test = preprocess_images(X_test)
+
+    
     # model = train_linear_regression(X_train, y_train)
     # model = train_logistic_regression(X_train, y_train)
     # model = train_svc(X_train, y_train)

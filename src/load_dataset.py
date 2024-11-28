@@ -1,6 +1,7 @@
 import os
 import cv2
 import pickle
+import numpy as np
 from sklearn.model_selection import train_test_split
 
 
@@ -21,6 +22,21 @@ def load_dataset(path):
         with open('data/dataset.pkl', 'wb') as f:
             pickle.dump(dataset, f)
     return dataset
+
+def preprocess_images(image_paths, target_size=(128, 128)):
+    images = []
+    for path in image_paths:
+        try:
+            img = cv2.imread(path)
+            if img is not None:
+                img = cv2.resize(img, target_size)
+                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                img = img / 255.0
+                images.append(img)
+        except Exception as e:
+            print(f"Error processant {path}: {e}")
+    return np.array(images)
+
 
 def train_test(dataset, train_size=0.6, test_size=0.2, val_size=0.2):
     X_train, y_train = [], []
