@@ -23,11 +23,12 @@ def load_dataset(path):
                     img = cv2.imread(img_path)
                     if img is not None:
                         img_resized = img[::10, ::10]  # Take one pixel every 10 pixels
+                        img = cv2.cvtColor(img_resized, cv2.COLOR_BGR2GRAY)
                         dataset.append(img_resized)
                         labels.append(dir_name)
         with open('data/dataset.pkl', 'wb') as f:
             pickle.dump(dataset, f)
-    return dataset, labels
+    return np.array(dataset), labels
 
 def preprocess_images(image_paths, target_size=(32, 32)):
     images = []
@@ -66,9 +67,9 @@ def train_test(dataset, labels, test_size=0.2, val_size=0.2):
 
 
 
-#data, labels = load_dataset('data/Cervical_Cancer')
-#print(len(data), len(labels))
+# data, labels = load_dataset('data/Cervical_Cancer')
+# print(len(data), len(labels))
 
-#X_train, y_train, X_val, y_val, X_test, y_test = train_test(data, labels)
-#for x, y in zip(X_train, y_train):
+# X_train, y_train, X_val, y_val, X_test, y_test = train_test(data, labels)
+# for x, y in zip(X_train, y_train):
 #    print("Imatge:", x, "Tipus de cancer:", y)
