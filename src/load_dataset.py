@@ -21,13 +21,15 @@ def load_dataset(path):
                 for file in os.listdir(folder_path)[:200]:  # Only take the first 200 images
                     img_path = os.path.join(folder_path, file)
                     img = cv2.imread(img_path)
+                    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
                     if img is not None:
                         img_resized = img[::10, ::10]  # Take one pixel every 10 pixels
                         dataset.append(img_resized)
                         labels.append(dir_name)
         with open('data/dataset.pkl', 'wb') as f:
             pickle.dump(dataset, f)
-    return dataset, labels
+    return np.array(dataset), labels
 
 def preprocess_images(image_paths, target_size=(32, 32)):
     images = []
@@ -38,7 +40,6 @@ def preprocess_images(image_paths, target_size=(32, 32)):
                 img = cv2.imread(path)
                 if img is not None:
                     img = cv2.resize(img, target_size)
-                    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
                     img = img / 255.0
                     images.append(img)
             except Exception as e:
