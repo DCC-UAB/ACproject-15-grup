@@ -7,3 +7,9 @@
 3- Crear X, Y i normalitzar dades
 4- Analitzar starting points
 5- Primera idea sobre model a fer/seguir
+
+
+**Tasques a realitzar Divendres 13 de desembre**
+1- Calcular shift i dense per diferents escales
+2- BoW (vocabulari = 1024, kmeans minibatch)
+3- Generar gràfiques
