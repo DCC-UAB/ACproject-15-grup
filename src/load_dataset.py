@@ -21,7 +21,6 @@ def load_dataset(path):
                 for file in os.listdir(folder_path)[:200]:  # Only take the first 200 images
                     img_path = os.path.join(folder_path, file)
                     img = cv2.imread(img_path)
-                    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
                     if img is not None:
                         img_resized = img[::10, ::10]  # Take one pixel every 10 pixels

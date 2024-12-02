@@ -1,9 +1,11 @@
 from load_dataset import *
+from sift import *
+from dense_sampling import *
 from sklearn import linear_model, svm
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import GridSearchCV
-from sklearn.preprocessing import LabelEncoder
+# from sklearn.preprocessing import LabelEncoder
 import numpy as np
 
 
@@ -65,41 +67,14 @@ def prediccio_tests(model, X_test, y_test):
 
 def main():
     print("Carregant dataset...")
-    data = load_dataset('data/Cervical_Cancer')
+    data, labels = load_dataset('data/Cervical_Cancer')
     print(f"Dataset carregat amb {len(data)} classes.")
 
     print("Dividint el dataset en entrenament, validació i test...")
-    X_train, y_train, X_val, y_val, X_test, y_test = train_test(data)
-    print(f"Conjunts generats: {len(X_train)} entrenament, {len(X_val)} validació, {len(X_test)} test.")
+    X_train, y_train, X_val, y_val, X_test, y_test = train_test(data, labels)
+    print(f"Dataset dividit: {len(X_train)} entrenament, {len(X_val)} validació, {len(X_test)} test.")
 
-    print("Preprocessant imatges d'entrenament...")
-    X_train = preprocess_images(X_train)
-    print(f"Imatges preprocessades: {X_train.shape}")
-
-    print("Preprocessant imatges de validació...")
-    X_val = preprocess_images(X_val)
-    print(f"Imatges preprocessades: {X_val.shape}")
-
-    print("Preprocessant imatges de test...")
-    X_test = preprocess_images(X_test)
-    print(f"Imatges preprocessades: {X_test.shape}")
-
-    print("Convertint imatges a matrius 2D...")
-    X_train = X_train.reshape(X_train.shape[0], -1)
-    X_val = X_val.reshape(X_val.shape[0], -1)
-    X_test = X_test.reshape(X_test.shape[0], -1)
-    print(f"Dimensions de les matrius: X_train={X_train.shape}, X_val={X_val.shape}, X_test={X_test.shape}")
-
-    print("Convertint etiquetes de text a valors numèrics...")
-    le = LabelEncoder()
-    all_classes = set(y_train + y_val + y_test)
-    le.fit(list(all_classes))
-    print(f"Classes trobades: {le.classes_}")
-
-    y_train = le.transform(y_train)
-    y_val = le.transform(y_val)
-    y_test = le.transform(y_test)
-    print(f"Exemple d'etiquetes transformades: y_train={y_train[:10]}")
+    print("Entrenant i validant els models...")
 
     models = ["train_linear_regression", "train_logistic_regression", "train_svc", "random_forest"]
     for m in models:

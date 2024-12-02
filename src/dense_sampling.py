@@ -23,4 +23,5 @@ def main():
     print(descriptors)
 
 if __name__ == '__main__':
-    main()
+    # main()
+    pass
