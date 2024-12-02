@@ -6,6 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 from collections import defaultdict
 import numpy as np
 
+
 def load_dataset(path):
     try:
         with open('data/dataset.pkl', 'rb') as f:
@@ -25,7 +26,7 @@ def load_dataset(path):
                     if img is not None:
                         img_resized = img[::10, ::10]  # Take one pixel every 10 pixels
                         img = cv2.cvtColor(img_resized, cv2.COLOR_BGR2GRAY)
-                        dataset.append(img_resized)
+                        dataset.append(img)
                         labels.append(dir_name)
         with open('data/dataset.pkl', 'wb') as f:
             pickle.dump(dataset, f)
