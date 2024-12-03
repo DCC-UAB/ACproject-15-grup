@@ -10,27 +10,28 @@ import numpy as np
 def load_dataset(path):
     try:
         with open('data/dataset.pkl', 'rb') as f:
-            dataset, labels = pickle.load(f)
+            dataset, labels = pickle.load(f)  # Assegurem que es carreguen tant dataset com labels
     except:
         dataset = []
         labels = []
         for root, dirs, files in os.walk(path):
-            for dir_name in dirs[:3]:  # Only take the first 3 directories
+            for dir_name in dirs[:3]:  # Només agafa els primers 3 directoris
                 folder_path = os.path.join(root, dir_name)
                 
-                images = []
-                for file in os.listdir(folder_path)[:200]:  # Only take the first 200 images
+                for file in os.listdir(folder_path)[:200]:  # Només agafa les primeres 200 imatges
                     img_path = os.path.join(folder_path, file)
                     img = cv2.imread(img_path)
 
                     if img is not None:
-                        img_resized = img[::10, ::10]  # Take one pixel every 10 pixels
-                        img = cv2.cvtColor(img_resized, cv2.COLOR_BGR2GRAY)
-                        dataset.append(img)
+                        img_resized = img[::10, ::10]  # Pren un píxel cada 10 píxels
+                        img_gray = cv2.cvtColor(img_resized, cv2.COLOR_BGR2GRAY)
+                        dataset.append(img_gray)
                         labels.append(dir_name)
+        # Guarda tant dataset com labels al pickle
         with open('data/dataset.pkl', 'wb') as f:
-            pickle.dump(dataset, f)
+            pickle.dump((dataset, labels), f)
     return np.array(dataset), labels
+
 
 def preprocess_images(image_paths, target_size=(32, 32)):
     images = []
