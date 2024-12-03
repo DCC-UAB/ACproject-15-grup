@@ -49,30 +49,26 @@ def preprocess_images(image_paths, target_size=(32, 32)):
     return np.array(images), categories
 
 
+def encode_labels(labels):
+    encoders = LabelEncoder()
+    encoders.fit(list(set(labels)))
+    labels_encoded = encoders.transform(labels)
+    return labels_encoded
+
+
 def train_test(dataset, labels, test_size=0.2, val_size=0.2):
     X_train, X_val_test, y_train, y_val_test = train_test_split(dataset, labels, train_size=val_size+test_size, random_state=42)
-    # print(len(X_train), len(y_train), len(X_val_test), len(y_val_test))
+    
     X_test, X_val, y_test, y_val = train_test_split(X_val_test, y_val_test, test_size=val_size/(test_size + val_size), random_state=42)
-    # ore = LabelEncoder(list(dataset.keys()))
-    # y_train_encoded = ore.fit_transform(y_train)
-    # y_test_encoded = ore.transform(y_test)
-    # y_val_encoded = ore.transform(y_val)
 
-    encoders = LabelEncoder()
-    encoders.fit(list(set(y_train+y_test+y_val)))
-    # Encoding the variable
-    y_train_encoded = encoders.transform(y_train) #Per tranformar els str a numeros
-    y_test_encoded = encoders.transform(y_test)
-    y_val_encoded = encoders.transform(y_val)
-    labels_encoded = encoders.transform(labels) #No definitiu, l'utilitzo per BoW de moment.
-
-    return X_train, y_train_encoded, X_val, y_val_encoded, X_test, y_test_encoded, labels_encoded
+    return X_train, y_train, X_val, y_val, X_test, y_test
 
 
 
 # data, labels = load_dataset('data/Cervical_Cancer')
 # print(len(data), len(labels))
+# labels_encoded = encode_labels(labels)
 
-# X_train, y_train, X_val, y_val, X_test, y_test, labels_encoded = train_test(data, labels)
+# X_train, y_train, X_val, y_val, X_test, y_test = train_test(data, labels_encoded)
 # for x, y in zip(X_train, y_train):
 #    print("Imatge:", x, "Tipus de cancer:", y)
