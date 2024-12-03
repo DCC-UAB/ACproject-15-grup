@@ -5,28 +5,28 @@ import numpy as np
 import pickle
 
 
-def dense_sampling(imatges, pases, amplada_punt, nfeatures):
+def dense_sampling(imatges, pases, amplada_punt, nfeatures, labels):
     
     height, width = imatges.shape[0], imatges.shape[1]
     mascara = np.zeros((height, width), dtype=np.uint8)
     for i in range(0, height, pases):
         for j in range(0, width, pases):
             mascara[i:i+amplada_punt, j:j+amplada_punt] = 1
-    keypoints, descriptors = extract_sift_features(imatges, nfeatures, mascara)
-    return descriptors
+    categories = extract_sift_features(imatges, labels, nfeatures, mascara)
+    return categories
 
 def main():
     data, labels = load_dataset('data/Cervical_Cancer')
 
     try:
         with open('data/dense_sampling_features.pkl', 'rb') as f:
-            descriptors = pickle.load(f)
+            features = pickle.load(f)
     except:
-        descriptors = dense_sampling(data, 15, 5, 128) #descriptors = [keypoints, descriptors]???
+        vector, features = dense_sampling(data, 15, 5, 128, labels) #descriptors = [keypoints, descriptors]???
         #recordatori: quan fem proves per diferents escales, crear pickle per cada escala
         with open('data/dense_sampling_features.pkl', 'wb') as f:
-            pickle.dump(descriptors, f)
-    print(descriptors)
+            pickle.dump(features, f)
+    print(features)
 
 if __name__ == '__main__':
     main()

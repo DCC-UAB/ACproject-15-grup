@@ -64,14 +64,15 @@ def train_test(dataset, labels, test_size=0.2, val_size=0.2):
     y_train_encoded = encoders.transform(y_train) #Per tranformar els str a numeros
     y_test_encoded = encoders.transform(y_test)
     y_val_encoded = encoders.transform(y_val)
+    labels_encoded = encoders.transform(labels) #No definitiu, l'utilitzo per BoW de moment.
 
-    return X_train, y_train_encoded, X_val, y_val_encoded, X_test, y_test_encoded
+    return X_train, y_train_encoded, X_val, y_val_encoded, X_test, y_test_encoded, labels_encoded
 
 
 
 # data, labels = load_dataset('data/Cervical_Cancer')
 # print(len(data), len(labels))
 
-# X_train, y_train, X_val, y_val, X_test, y_test = train_test(data, labels)
+# X_train, y_train, X_val, y_val, X_test, y_test, labels_encoded = train_test(data, labels)
 # for x, y in zip(X_train, y_train):
 #    print("Imatge:", x, "Tipus de cancer:", y)

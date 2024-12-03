@@ -1,38 +1,41 @@
 import cv2
 from load_dataset import *
 import pickle
+import numpy as np
+from collections import defaultdict
 
 
-def sift_features(image, n, mask=None):
+
+def extract_sift_features(images, labels, n, mask=None):
     sift = cv2.SIFT_create(nfeatures=n)
-    keypoints, descriptors = sift.detectAndCompute(image, mask)
-    return keypoints, descriptors
+    vector = []
+    categories = defaultdict(list) #Diccionari de llistes a on guardem la categoria de cada feature
+    for image, label in zip(images, labels):
+        _ , descriptors = sift.detectAndCompute(image, mask)
+        vector.extend(descriptors)
+        categories[label].append(descriptors)
 
-def extract_sift_features(images, n, mask=None):
-    features = []
-    for image in images:
-        keypoints, descriptors = sift_features(image, n, mask)
-        features.append(descriptors)
-    return keypoints, features
+    vector = np.array(vector)
+    return vector, categories
 
 def main():
     n = 128 #Això és l'escala de les característiques SIFT
     data, labels = load_dataset('data/Cervical_Cancer')
     try:
         with open('data/features.pkl', 'rb') as f:
-            features = pickle.load(f)
+            categories = pickle.load(f)
     except:
         print("Extracció de característiques SIFT...")
-        keypoints, features = extract_sift_features(data, n, None)
-        print(f"Característiques SIFT extretes: {len(features)}")
-        print(features)
+        vector, categories = extract_sift_features(data, labels, n, None)
+        # print(f"Característiques SIFT extretes: {len(features)}")
+        print(categories)
         #recordatori: quan fem proves per diferents escales, crear pickle per cada escala
 
         with open('data/features.pkl', 'wb') as f:
-            pickle.dump(features, f)
+            pickle.dump(categories, f)
 
 
 if __name__ == '__main__':
-    # main()
+    main()
     pass
 
