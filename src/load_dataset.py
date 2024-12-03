@@ -23,7 +23,7 @@ def load_dataset(path):
                     img = cv2.imread(img_path)
 
                     if img is not None:
-                        img_resized = img[::10, ::10]  # Pren un píxel cada 10 píxels
+                        img_resized = img
                         img_gray = cv2.cvtColor(img_resized, cv2.COLOR_BGR2GRAY)
                         dataset.append(img_gray)
                         labels.append(dir_name)
