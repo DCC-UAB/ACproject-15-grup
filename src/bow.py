@@ -37,6 +37,7 @@ def bag_of_words_histogram(features, kmeans, vocab_size=1024):
 
 def main():
     data, labels = load_dataset('data/Cervical_Cancer')
+    labels_encoded = encode_labels(labels)
     # try:
     #     with open('data/features.pkl', 'rb') as f:
     #         pass
@@ -46,7 +47,7 @@ def main():
     #     with open('data/features.pkl', 'wb') as f:
     #         # pickle.dump(categories, f)
     #         pass
-    vector, categories = extract_sift_features(data, labels, 128, None)
+    vector, categories = extract_sift_features(data, labels_encoded, 128, None)
 
     kmeans = train_visual_words(vector, 1024)
     bow = bag_of_words_histogram(categories, kmeans, 1024)
