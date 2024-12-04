@@ -32,7 +32,6 @@ def bag_of_words_histogram(features, n_clusters=1024):
 def main():
     data, labels = load_dataset('data/Cervical_Cancer')
     labels_encoded = encode_labels(labels)
-<<<<<<< HEAD
     # try:
     #     with open('data/features.pkl', 'rb') as f:
     #         pass
@@ -42,9 +41,7 @@ def main():
     #     with open('data/features.pkl', 'wb') as f:
     #         # pickle.dump(categories, f)
     #         pass
-    vector, categories = extract_sift_features(data, labels_encoded, 128, None)
-=======
->>>>>>> 1b1feb011ed39bf00966b5e4779ef14b57e0df67
+    #vector, categories = extract_sift_features(data, labels_encoded, 128, None)
 
     features = extract_sift_features(data, labels_encoded, 128, None)
     bow = bag_of_words_histogram(features)
