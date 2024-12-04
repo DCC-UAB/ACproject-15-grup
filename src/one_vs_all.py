@@ -4,6 +4,8 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import numpy as np
 import pickle
 import os
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 def one_vs_all(X_train, y_train, X_val, y_val, X_test, y_test, classes, model_fn):
@@ -49,6 +51,24 @@ def one_vs_all(X_train, y_train, X_val, y_val, X_test, y_test, classes, model_fn
 
     return models, metrics, test_metrics
 
+def plot_metrics(metrics, metric_name, title):
+    classes = list(metrics.keys())
+    values = [metrics[classe][metric_name] for classe in classes]
+
+    plt.figure(figsize=(10, 6))
+    plt.bar(classes, values, alpha=0.7, edgecolor='black')
+    plt.xlabel("Classes")
+    plt.ylabel(metric_name.capitalize())
+    plt.title(title)
+    plt.xticks(rotation=45, ha='right')
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_all_metrics(metrics, title_prefix="Validation"):
+    for metric in ['accuracy', 'precision', 'recall', 'f1']:
+        plot_metrics(metrics, metric, f"{title_prefix} {metric.capitalize()} per classe")
 
 def main():
     print("Carregant i processant el dataset...")
@@ -69,6 +89,21 @@ def main():
     models_svc, val_metrics_svc, test_metrics_svc = one_vs_all(
         X_train, y_train, X_val, y_val, X_test, y_test, classes, train_svc
     )
+
+    print("Generant gràfics de validació per Logistic Regression...")
+    plot_all_metrics(val_metrics_lr, title_prefix="Validation (Logistic Regression)")
+
+    # Plota les mètriques de test:
+    print("Generant gràfics de test per Logistic Regression...")
+    plot_all_metrics(test_metrics_lr, title_prefix="Test (Logistic Regression)")
+
+    # Plota les mètriques de validació per SVC:
+    print("Generant gràfics de validació per SVC...")
+    plot_all_metrics(val_metrics_svc, title_prefix="Validation (SVC)")
+
+    # Plota les mètriques de test per SVC:
+    print("Generant gràfics de test per SVC...")
+    plot_all_metrics(test_metrics_svc, title_prefix="Test (SVC)")
 
     # Guardem els models en fitxers dins de /data
     models_dir = os.path.join("data", "models")
