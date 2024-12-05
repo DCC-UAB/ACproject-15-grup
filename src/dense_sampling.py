@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 
 
-def dense_sampling(imatges, pases, amplada_punt, nfeatures, labels):
+def dense_sampling(imatges, labels, pases, amplada_punt, nfeatures ):
     
     height, width = imatges.shape[0], imatges.shape[1]
     mascara = np.zeros((height, width), dtype=np.uint8)
@@ -22,7 +22,7 @@ def main():
         with open('data/dense_sampling_features.pkl', 'rb') as f:
             features = pickle.load(f)
     except:
-        vector, features = dense_sampling(data, 15, 5, 128, labels) #descriptors = [keypoints, descriptors]???
+        vector, features = dense_sampling(data, labels, 15, 5, 128) #descriptors = [keypoints, descriptors]???
         #recordatori: quan fem proves per diferents escales, crear pickle per cada escala
         with open('data/dense_sampling_features.pkl', 'wb') as f:
             pickle.dump(features, f)

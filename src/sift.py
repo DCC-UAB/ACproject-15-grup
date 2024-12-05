@@ -18,6 +18,7 @@ def extract_sift_features(images, labels, n, mask=None):
     vector = np.array(vector)
     return vector, categories
 
+
 def main():
     n = 128 #Això és l'escala de les característiques SIFT
     data, labels = load_dataset('data/Cervical_Cancer')

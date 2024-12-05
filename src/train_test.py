@@ -7,6 +7,8 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import GridSearchCV
 # from sklearn.preprocessing import LabelEncoder
 import numpy as np
+import pickle
+from sklearn.multiclass import OneVsRestClassifier
 
 
 def train_linear_regression(X_train, y_train):
@@ -20,12 +22,19 @@ def train_logistic_regression(X_train, y_train, c=10):
     lr.fit(X_train, y_train)
     return lr
 
-def train_svc(X_train, y_train, c=1.0, kernel="rbf", classificador="ovr"): 
-    #kernel: "linear", "poly", "rbf", "sigmoid" 
-    # classificador: "ovr", "ovo"
-    svc = svm.SVC(C=c, kernel=kernel, decision_function_shape=classificador)
-    svc.fit(X_train, y_train)
-    return svc
+# def train_svc(X_train, y_train, c=1.0, kernel="rbf", classificador="ovr"): 
+#     #kernel: "linear", "poly", "rbf", "sigmoid" 
+#     # classificador: "ovr", "ovo"
+#     svc = svm.SVC(C=c, kernel=kernel, decision_function_shape=classificador)
+#     svc.fit(X_train, y_train)
+#     return svc
+
+def train_svc(bow, y_train):
+    models = []
+    for i in [0.1, 0.5, 1, 5, 10, 20, 40, 100, 1000]:
+        clf = OneVsRestClassifier(svm.SVC(C=i, kernel="sigmoid", random_state=42)).fit(bow, y_train)
+        models.append((clf, i))
+    return models
 
 def random_forest(X_train, y_train):
     rf = DecisionTreeClassifier(random_state=42)
