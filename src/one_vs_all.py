@@ -106,11 +106,11 @@ def main():
             with open("data/bow_dense_test.pkl", 'rb') as f:
                 bow_test = pickle.load(f)
         except:
-            vectors, features = dense_sampling(X_train, y_train, 10, 2, 128)
+            vectors, features = dense_sampling(X_train, y_train, 15, 5, 128)
             bow_train = bag_of_words_histogram(vectors, features, sift=False, fase="train")
-            vectors, features = dense_sampling(X_val, y_val, 10, 2, 128)
+            vectors, features = dense_sampling(X_val, y_val, 15, 5, 128)
             bow_val = bag_of_words_histogram(vectors, features, sift=False, fase="val")
-            vectors, features = dense_sampling(X_test, y_test, 10, 2, 128)
+            vectors, features = dense_sampling(X_test, y_test, 15, 5, 128)
             bow_test = bag_of_words_histogram(vectors, features, sift=False, fase="test")
 
 

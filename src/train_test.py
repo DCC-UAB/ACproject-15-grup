@@ -31,7 +31,7 @@ def train_logistic_regression(X_train, y_train, c=10):
 
 def train_svc(bow, y_train):
     models = []
-    for i in [0.1, 0.5, 1, 5, 10, 20, 40, 100, 1000]:
+    for i in [0.001, 0.1, 0.5, 1, 5, 10, 20]:
         clf = OneVsRestClassifier(svm.SVC(C=i, kernel="sigmoid", random_state=42)).fit(bow, y_train)
         models.append((clf, i))
     return models
