@@ -8,7 +8,7 @@ from sklearn.model_selection import GridSearchCV
 # from sklearn.preprocessing import LabelEncoder
 import numpy as np
 import pickle
-from sklearn.multiclass import OneVsRestClassifier
+from sklearn.multiclass import OneVsRestClassifier, OneVsOneClassifier
 
 
 def train_linear_regression(X_train, y_train):
@@ -17,10 +17,25 @@ def train_linear_regression(X_train, y_train):
 
     return lr
 
-def train_logistic_regression(X_train, y_train, c=10):
-    lr = linear_model.LogisticRegression(C=c, solver="liblinear", max_iter=5000, penalty="l2")
-    lr.fit(X_train, y_train)
-    return lr
+def train_logistic_regression(X_train, y_train, c=0.1, solver="newton-cg", max_iter=5000, penalty="l2", classificador="ovr"):
+    # solvers = ['lbfgs', 'liblinear', 'newton-cg', 'newton-cholesky', 'sag', 'saga']
+    c_values = [0.1, 0.5]
+    # c_values = [0.1]
+    models = []
+    if classificador == "ovr":
+        for i in c_values:
+            lr = linear_model.LogisticRegression(C=i, solver=solver, max_iter=max_iter, penalty=penalty)
+            ovr = OneVsRestClassifier(lr)
+            ovr.fit(X_train, y_train)
+            models.append((ovr, i, solver, max_iter, "logistic_regression"))
+    else:
+        for i in c_values:
+            lr = linear_model.LogisticRegression(C=i, solver=solver, max_iter=max_iter, penalty=penalty)
+            ovo = OneVsOneClassifier(lr)
+            ovo.fit(X_train, y_train)
+            models.append((ovo, i, solver, max_iter, "logistic_regression"))
+
+    return models
 
 # def train_svc(X_train, y_train, c=1.0, kernel="rbf", classificador="ovr"): 
 #     #kernel: "linear", "poly", "rbf", "sigmoid" 
@@ -29,11 +44,18 @@ def train_logistic_regression(X_train, y_train, c=10):
 #     svc.fit(X_train, y_train)
 #     return svc
 
-def train_svc(bow, y_train):
+def train_svc(bow, y_train, c=1.0, kernel="sigmoid", classificador="ovr"):
     models = []
-    for i in [0.001, 0.1, 0.5, 1, 5, 10, 20]:
-        clf = OneVsRestClassifier(svm.SVC(C=i, kernel="sigmoid", random_state=42)).fit(bow, y_train)
-        models.append((clf, i))
+    c_values = [0.1, 0.5]
+    # c_values = [0.1]
+    if classificador == "ovr":
+        for i in c_values: #Probability=true per roc_curve
+            clf = OneVsRestClassifier(svm.SVC(C=i, kernel=kernel, random_state=42, probability=True)).fit(bow, y_train)
+            models.append((clf, i, kernel, classificador, "svc"))
+    else:
+        for i in c_values:
+            clf = OneVsOneClassifier(svm.SVC(C=i, kernel=kernel, random_state=42)).fit(bow, y_train)
+            models.append((clf, i, kernel, classificador, "svc"))
     return models
 
 def random_forest(X_train, y_train):

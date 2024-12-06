@@ -22,7 +22,7 @@ def main():
         with open('data/dense_sampling_features.pkl', 'rb') as f:
             vector, features = pickle.load(f)
     except:
-        vector, features = dense_sampling(data, labels, 15, 5, 128) #descriptors = [keypoints, descriptors]???
+        vector, features = dense_sampling(data, labels, 15, 5, 128)
         #recordatori: quan fem proves per diferents escales, crear pickle per cada escala
         with open('data/dense_sampling_features.pkl', 'wb') as f:
             pickle.dump((vector, features), f)

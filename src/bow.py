@@ -19,11 +19,11 @@ def bag_of_words_histogram(vector, features, n_clusters=1024, sift=True, fase="t
     kmeans = train_visual_words(vector, n_clusters)
     # bow = np.zeros((len(features), kmeans.n_clusters))
     for label, image_feature in features.items():
-        for descriptor in image_feature:
-            hist_label = np.zeros(shape = kmeans.n_clusters)
-            pred = kmeans.predict(descriptor)
+        for descriptor in image_feature: #descriptors de la imatge
+            hist_label = np.zeros(shape = kmeans.n_clusters) 
+            pred = kmeans.predict(descriptor) #predim a quin cluster correspon cada descriptor
             for i in pred:
-                hist_label[i] += 1
+                hist_label[i] += 1 #comptem quants descriptors tenim a cada cluster
             bow.append(hist_label)
     bow = np.array(bow)
     if sift:

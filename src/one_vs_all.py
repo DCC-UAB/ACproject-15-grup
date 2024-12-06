@@ -110,8 +110,8 @@ def main():
             bow_train = bag_of_words_histogram(vectors, features, sift=False, fase="train")
             vectors, features = dense_sampling(X_val, y_val, 15, 5, 128)
             bow_val = bag_of_words_histogram(vectors, features, sift=False, fase="val")
-            vectors, features = dense_sampling(X_test, y_test, 15, 5, 128)
-            bow_test = bag_of_words_histogram(vectors, features, sift=False, fase="test")
+            # vectors, features = dense_sampling(X_test, y_test, 15, 5, 128)
+            # bow_test = bag_of_words_histogram(vectors, features, sift=False, fase="test")
 
 
     # # Entrenem el model One-vs-All amb Logistic Regression
@@ -126,7 +126,11 @@ def main():
     #     X_train, y_train, X_val, y_val, X_test, y_test, classes, train_svc
     # )
     # print([max(x) for x in bow_train], len(y_train))
-    models = train_svc(bow_train, y_train)
+    # models = train_svc(bow_train, y_train)
+    # for model in models:
+    #     print(model[0].score(bow_val, y_val), model[1])
+
+    models = train_logistic_regression(bow_train, y_train)
     for model in models:
         print(model[0].score(bow_val, y_val), model[1])
 
