@@ -9,33 +9,48 @@ from sklearn.model_selection import GridSearchCV
 import numpy as np
 import pickle
 from sklearn.multiclass import OneVsRestClassifier, OneVsOneClassifier
+from sklearn.model_selection import GridSearchCV
 
 
-def train_linear_regression(X_train, y_train):
-    lr = linear_model.LinearRegression()
-    lr.fit(X_train, y_train)
+# X_train_encoded = ordinal_encoder_car.fit_transform(X_train)
+# X_test_encoded = ordinal_encoder_car.transform(X_test)
 
-    return lr
+# parameters= {'criterion':['entropy'],'max_depth' : [2,4,6,8,10,12]  ,'splitter':["best","random"],'min_samples_split':[2,3,4,6,7]}
+# clf = DecisionTreeClassifier(random_state=42)
+# grid_search_cv = GridSearchCV(estimator=clf, param_grid=parameters, cv=3, n_jobs=14) #Buscarà els millors paràmetres
+
+# grid_search_cv.fit(X_train_encoded, y_train)
+# estimator_entropy = grid_search_cv.best_estimator_
+
+def grid_search(X_train, y_train, model, parameters):
+    grid_search_cv = GridSearchCV(estimator=model, param_grid=parameters, cv=3, n_jobs=8) #Buscarà els millors paràmetres
+    grid_search_cv.fit(X_train, y_train)
+    return grid_search_cv.best_params_, grid_search_cv.best_estimator_
 
 def train_logistic_regression(X_train, y_train, c=0.1, solver="newton-cg", max_iter=5000, penalty="l2", classificador="ovr"):
     # solvers = ['lbfgs', 'liblinear', 'newton-cg', 'newton-cholesky', 'sag', 'saga']
-    c_values = [0.1, 0.5]
+    c_values = [0.1, 0.5, 0.75]
     # c_values = [0.1]
-    models = []
+    # models = []
+    parameters = {'C': c_values, 'solver': ['lbfgs', 'liblinear', 'newton-cg', 'sag', 'saga'], 'max_iter': [1000, 2500, 5000], 'penalty':["l2"]}
     if classificador == "ovr":
-        for i in c_values:
-            lr = linear_model.LogisticRegression(C=i, solver=solver, max_iter=max_iter, penalty=penalty)
-            ovr = OneVsRestClassifier(lr)
-            ovr.fit(X_train, y_train)
-            models.append((ovr, i, solver, max_iter, "logistic_regression"))
-    else:
-        for i in c_values:
-            lr = linear_model.LogisticRegression(C=i, solver=solver, max_iter=max_iter, penalty=penalty)
-            ovo = OneVsOneClassifier(lr)
-            ovo.fit(X_train, y_train)
-            models.append((ovo, i, solver, max_iter, "logistic_regression"))
+            lr = linear_model.LogisticRegression(random_state=42)
+            best_params, model = grid_search(X_train, y_train, lr, parameters)
+            print(model)
+            model = OneVsRestClassifier(model)
+            model.fit(X_train, y_train)
+            print(model)
 
-    return models
+
+    else:
+            lr = linear_model.LogisticRegression(random_state=42)
+            
+            best_params, model = grid_search(X_train, y_train, lr, parameters)
+            
+            
+            model = OneVsOneClassifier(model.fit(X_train, y_train))
+
+    return model, best_params
 
 # def train_svc(X_train, y_train, c=1.0, kernel="rbf", classificador="ovr"): 
 #     #kernel: "linear", "poly", "rbf", "sigmoid" 
@@ -46,8 +61,8 @@ def train_logistic_regression(X_train, y_train, c=0.1, solver="newton-cg", max_i
 
 def train_svc(bow, y_train, c=1.0, kernel="sigmoid", classificador="ovr"):
     models = []
-    c_values = [0.1, 0.5]
-    # c_values = [0.1]
+    # c_values = [0.001] #Massa petit
+    c_values = [0.1]
     if classificador == "ovr":
         for i in c_values: #Probability=true per roc_curve
             clf = OneVsRestClassifier(svm.SVC(C=i, kernel=kernel, random_state=42, probability=True)).fit(bow, y_train)
@@ -126,4 +141,5 @@ def main():
             print(f"Error durant l'entrenament/validació de {m}: {e}")
 
 if __name__ == "__main__":
-    main()
+    # main()
+    pass
