@@ -88,15 +88,15 @@ def main():
                 bow_train = pickle.load(f)
             with open("data/bow_sift_val.pkl", 'rb') as f:
                 bow_val = pickle.load(f)
-            with open("data/bow_sift_test.pkl", 'rb') as f:
-                bow_test = pickle.load(f)
+            # with open("data/bow_sift_test.pkl", 'rb') as f:
+            #     bow_test = pickle.load(f)
         except:
             vectors, features = extract_sift_features(X_train, y_train, 128, None)
             bow_train = bag_of_words_histogram(vectors, features, sift=True, fase="train")
             vectors, features = extract_sift_features(X_val, y_val, 128, None)
             bow_val = bag_of_words_histogram(vectors, features, sift=True, fase="val")
-            vectors, features = extract_sift_features(X_test, y_test, 128, None)
-            bow_test = bag_of_words_histogram(vectors, features, sift=True, fase="test")
+            # vectors, features = extract_sift_features(X_test, y_test, 128, None)
+            # bow_test = bag_of_words_histogram(vectors, features, sift=True, fase="test")
     else:
         try:
             with open("data/bow_dense_train.pkl", 'rb') as f:
@@ -130,9 +130,9 @@ def main():
     # for model in models:
     #     print(model[0].score(bow_val, y_val), model[1])
 
-    models = train_logistic_regression(bow_train, y_train)
-    for model in models:
-        print(model[0].score(bow_val, y_val), model[1])
+    model = train_logistic_regression(bow_train, y_train)
+    print(model[0].score(bow_train, y_train))
+    print(model[0].score(bow_val, y_val), model[1])
 
     # Dibuixar un gràfic amb els punts i la classificacio segons SVC
     # plt.figure(figsize=(10, 6))

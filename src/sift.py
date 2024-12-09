@@ -11,7 +11,7 @@ def extract_sift_features(images, labels, n, mask=None):
     vector = []
     categories = defaultdict(list) #Diccionari de llistes a on guardem la categoria de cada feature
     for image, label in zip(images, labels):
-        _ , descriptors = sift.detectAndCompute(image, mask)
+        _ , descriptors = sift.detectAndCompute(image, mask=mask)
         vector.extend(descriptors)
         categories[label].append(descriptors)
 

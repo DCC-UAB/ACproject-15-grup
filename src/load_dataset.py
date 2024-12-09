@@ -37,7 +37,7 @@ def preprocess_images(image_paths, target_size=(32, 32)):
     images = []
     categories = {k:v for k, v in enumerate(image_paths.keys())}
     for category in image_paths.values():
-        for path in category[:200]:
+        for path in category[:300]:
             try:
                 img = cv2.imread(path)
                 if img is not None:
@@ -56,12 +56,13 @@ def encode_labels(labels):
     return labels_encoded
 
 
-def train_test(dataset, labels, test_size=0.2, val_size=0.2):
+def train_test(dataset, labels, test_size=0, val_size=0.2):
     X_train, X_val_test, y_train, y_val_test = train_test_split(dataset, labels, train_size=val_size+test_size, random_state=42)
     
-    X_test, X_val, y_test, y_val = train_test_split(X_val_test, y_val_test, test_size=val_size/(test_size + val_size), random_state=42)
+    # X_test, X_val, y_test, y_val = train_test_split(X_val_test, y_val_test, test_size=test_size/(test_size + val_size), random_state=42)
+    X_val, y_val = X_val_test, y_val_test
 
-    return X_train, y_train, X_val, y_val, X_test, y_test
+    return X_train, y_train, X_val, y_val, 0, 0
 
 
 
