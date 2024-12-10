@@ -73,8 +73,9 @@ def plot_all_metrics(metrics, title_prefix="Validation"):
     for metric in ['accuracy', 'precision', 'recall', 'f1']:
         plot_metrics(metrics, metric, f"{title_prefix} {metric.capitalize()} per classe")
 
+
 def main():
-    sift = False
+    sift = True
     print("Carregant i processant el dataset...")
     dataset_path = 'data/Cervical_Cancer'
     data, labels = load_dataset(dataset_path)
@@ -88,11 +89,13 @@ def main():
                 bow_train = pickle.load(f)
             with open("data/bow_sift_val.pkl", 'rb') as f:
                 bow_val = pickle.load(f)
-            # with open("data/bow_sift_test.pkl", 'rb') as f:
-            #     bow_test = pickle.load(f)
+            with open("data/bow_sift_test.pkl", 'rb') as f:
+                bow_test = pickle.load(f)
         except:
             vectors, features = extract_sift_features(X_train, y_train, 128, None)
+            print(len(vectors), len(features))
             bow_train = bag_of_words_histogram(vectors, features, sift=True, fase="train")
+            print(bow_train)
             vectors, features = extract_sift_features(X_val, y_val, 128, None)
             bow_val = bag_of_words_histogram(vectors, features, sift=True, fase="val")
             # vectors, features = extract_sift_features(X_test, y_test, 128, None)
@@ -129,7 +132,7 @@ def main():
     # models = train_svc(bow_train, y_train)
     # for model in models:
     #     print(model[0].score(bow_val, y_val), model[1])
-
+    print(len(bow_train), len(y_train))
     model = train_logistic_regression(bow_train, y_train)
     print(model[0].score(bow_train, y_train))
     print(model[0].score(bow_val, y_val), model[1])

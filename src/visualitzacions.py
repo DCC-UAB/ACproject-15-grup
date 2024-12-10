@@ -2,13 +2,15 @@ import os
 import pickle
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, ConfusionMatrixDisplay, confusion_matrix, roc_curve, auc
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, ConfusionMatrixDisplay, confusion_matrix, roc_curve, auc, classification_report
 import pandas as pd
 from load_dataset import *
 from dense_sampling import *
 from sift import *
 from bow import *
 from train_test import *
+from sklearn.preprocessing import label_binarize
+
 
 
 def get_metrics(model, X_val, y_val):
@@ -21,26 +23,37 @@ def get_metrics(model, X_val, y_val):
 
     return accuracy, precision, recall, f1
 
+
 def show_metrics(models, X_val, y_val):
     table = []
     for tipus_model in models:
-        for m in tipus_model:
-            accuracy, precision, recall, f1 = get_metrics(m[0], X_val, y_val)
-            table.append({'model': m[4], 'c': m[1], 'kernel/solver': m[2], 'classif/max_iter': m[3], 'accuracy': accuracy, 'precision': precision, 'recall': recall, 'f1': f1})
+        for m, bow in zip(tipus_model, X_val):
+            accuracy, precision, recall, f1 = get_metrics(m[0], bow, y_val)
+            table.append({'model': m[0].estimator, 'c': m[1]['C'], 'max_iter': m[1]["max_iter"], 'penalty': m[1]["penalty"], "solver": m[1]["solver"], 'accuracy': accuracy, 'precision': precision, 'recall': recall, 'f1': f1})
 
 # Convert the list of dictionaries to a DataFrame
     df = pd.DataFrame(table)
     df = round(df, 2)
-    df = df.sort_values(by=['accuracy', 'precision', 'recall', 'f1'], ascending=False)
+    # df = df.sort_values(by=['accuracy', 'precision', 'recall', 'f1'], ascending=False)
     return df
+
 def execute_models():
-    sift = False
+    sift = True
     print("Carregant i processant el dataset...")
     dataset_path = 'data/Cervical_Cancer'
     data, labels = load_dataset(dataset_path)
     labels_encoded = encode_labels(labels)
     X_train, y_train, X_val, y_val, X_test, y_test = train_test(data, labels_encoded)
-    classes = list(set(labels))
+    # classes = list(set(labels))
+    features = [128]
+    n_clusters = [1024, 2048]
+    llista_bows_train = []
+    llista_bows_val = []
+    # llista_bows_test = []
+    passa = [10, 15, 20]
+    width = [2, 5, 10]
+    models = []
+
     print("Extracció de característiques SIFT i creant histograma BoW...")
     if sift:
         try:
@@ -51,37 +64,53 @@ def execute_models():
             with open("data/bow_sift_test.pkl", 'rb') as f:
                 bow_test = pickle.load(f)
         except:
-            vectors, features = extract_sift_features(X_train, y_train, 128, None)
-            bow_train = bag_of_words_histogram(vectors, features, sift=True, fase="train")
-            vectors, features = extract_sift_features(X_val, y_val, 128, None)
-            bow_val = bag_of_words_histogram(vectors, features, sift=True, fase="val")
-            # vectors, features = extract_sift_features(X_test, y_test, 128, None)
-            # bow_test = bag_of_words_histogram(vectors, features, sift=True, fase="test")
+            for i in features:
+                print("Feature number: ", i)
+                vectors_train, features_train = extract_sift_features(X_train, y_train, i, None)
+                vectors_val, features_val = extract_sift_features(X_val, y_val, i, None)
+                # vectors_test, features_test = extract_sift_features(X_test, y_test, i, None)
+                for j in n_clusters:
+                    print("Number of clusters: ", j)
+                    bow_train = bag_of_words_histogram(vectors_train, features_train, n_clusters=j, sift=True, fase="train")
+                    bow_val = bag_of_words_histogram(vectors_val, features_val, n_clusters=j, sift=True, fase="val")
+                    # bow_test = bag_of_words_histogram(vectors_test, features_test, n_clusters=j, sift=True, fase="test")
+                    llista_bows_train.append(bow_train)
+                    llista_bows_val.append(bow_val)
+                    # llista_bows_test.extend(bow_test)
+                   
     else:
         try:
             with open("data/bow_dense_train.pkl", 'rb') as f:
                 bow_train = pickle.load(f)
             with open("data/bow_dense_val.pkl", 'rb') as f:
                 bow_val = pickle.load(f)
-            # with open("data/bow_dense_test.pkl", 'rb') as f:
-            #     bow_test = pickle.load(f)
+            with open("data/bow_dense_test.pkl", 'rb') as f:
+                bow_test = pickle.load(f)
         except:
-            vectors, features = dense_sampling(X_train, y_train, 15, 5, 128)
-            bow_train = bag_of_words_histogram(vectors, features, sift=False, fase="train")
-            vectors, features = dense_sampling(X_val, y_val, 15, 5, 128)
-            bow_val = bag_of_words_histogram(vectors, features, sift=False, fase="val")
+            for i in features:
+                for j in passa:
+                    for w in width:
+                        vectors_train, features_train = dense_sampling(X_train, y_train, j, w, i)
+                        vectors_val, features_val = dense_sampling(X_val, y_val, j, w, i)
+                        # vectors_test, features_test = dense_sampling(X_test, y_test, j, w, i)
+                        for k in n_clusters:
+                            bow_train = bag_of_words_histogram(vectors_train, features_train, n_clusters=k, sift=False, fase="train")
+                            bow_val = bag_of_words_histogram(vectors_val, features_val, n_clusters=k, sift=False, fase="val")
+                            # bow_test = bag_of_words_histogram(vectors_test, features, n_clusters=k, sift=False, fase="test")
+                            llista_bows_train.append(bow_train)
+                            llista_bows_val.append(bow_val)
+                            # llista_bows_test.extend(bow_test)
+
             # vectors, features = dense_sampling(X_test, y_test, 15, 5, 128)
             # bow_test = bag_of_words_histogram(vectors, features, sift=False, fase="test")
+    for bow_train in llista_bows_train:
+        print(len(bow_train), len(y_train))
+        models.append([train_logistic_regression(bow_train, y_train)])
 
-    model1 = train_logistic_regression(bow_train, y_train)
-    model2 = train_svc(bow_train, y_train) #Model es una llista amb el model i els paràmetres utilitzats
+        # model2 = train_svc(bow_train, y_train) #Model es una llista amb el model i els paràmetres utilitzats
+    # print(models)
+    return models, llista_bows_val, y_val
 
-    return [model1, model2], bow_val, y_val
-
-models, bow_val, y_val = execute_models()
-# nom_models = ["logistic_regression", "svc"] 
-df = show_metrics(models, bow_val, y_val)
-print(df)
 
 def show_confusion_matrix(models, X_val, y_val):
     for tipus_model in models:
@@ -93,9 +122,7 @@ def show_confusion_matrix(models, X_val, y_val):
             plt.title(f'Confusion Matrix for {m[4]} and C={m[1]}')
             plt.show()
 
-show_confusion_matrix(models, bow_val, y_val)
 
-from sklearn.preprocessing import label_binarize
 
 def show_roc_curve(models, X_val, y_val):
     roc_auc = []
@@ -123,4 +150,16 @@ def show_roc_curve(models, X_val, y_val):
         plt.legend(loc="lower right")
         plt.show()
 
-# show_roc_curve(models, bow_val, y_val)
+def main():
+    models, llista_bows_val, y_val = execute_models()
+    print(models)
+    # nom_models = ["logistic_regression", "svc"] 
+    df = show_metrics(models, llista_bows_val, y_val)
+    print(df)
+    # show_confusion_matrix(models, bow_val, y_val)
+
+    # show_roc_curve(models, bow_val, y_val)
+
+if __name__ == '__main__':
+    main()
+    pass

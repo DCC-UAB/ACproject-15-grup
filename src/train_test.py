@@ -47,8 +47,8 @@ def train_logistic_regression(X_train, y_train, c=0.1, solver="newton-cg", max_i
             
             best_params, model = grid_search(X_train, y_train, lr, parameters)
             
-            
-            model = OneVsOneClassifier(model.fit(X_train, y_train))
+            model = OneVsOneClassifier(model)
+            model.fit(X_train, y_train)
 
     return model, best_params
 
