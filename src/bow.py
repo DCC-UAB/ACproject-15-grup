@@ -12,7 +12,7 @@ def train_visual_words(vector_features, n_clusters=1024):
     kmeans.fit(np.array(vector_features))
     return kmeans
 
-def bag_of_words_histogram(vector, features, n_clusters=1024, sift=True, fase="train"):
+def bag_of_words_histogram(vector, features, n_clusters=1024):
     # Create the bag of words
     #dubte sobre si bow ha de ser una matriu o ha de ser una llista de matrius unidimensionals
     bow = []
@@ -26,12 +26,6 @@ def bag_of_words_histogram(vector, features, n_clusters=1024, sift=True, fase="t
                 hist_label[i] += 1 #comptem quants descriptors tenim a cada cluster
             bow.append(hist_label)
     bow = np.array(bow)
-    if sift:
-        with open(f"data/bow_sift_{fase}.pkl", "wb") as f:
-            pickle.dump(bow, f)
-    else:
-        with open(f"data/bow_dense_{fase}.pkl", "wb") as f:
-            pickle.dump(bow, f)
     return bow
 
 def main():

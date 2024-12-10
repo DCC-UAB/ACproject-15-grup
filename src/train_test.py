@@ -28,27 +28,12 @@ def grid_search(X_train, y_train, model, parameters):
     return grid_search_cv.best_params_, grid_search_cv.best_estimator_
 
 def train_logistic_regression(X_train, y_train, c=0.1, solver="newton-cg", max_iter=5000, penalty="l2", classificador="ovr"):
-    # solvers = ['lbfgs', 'liblinear', 'newton-cg', 'newton-cholesky', 'sag', 'saga']
     c_values = [0.1, 0.5, 0.75]
-    # c_values = [0.1]
-    # models = []
     parameters = {'C': c_values, 'solver': ['lbfgs', 'liblinear', 'newton-cg', 'sag', 'saga'], 'max_iter': [1000, 2500, 5000], 'penalty':["l2"]}
-    if classificador == "ovr":
-            lr = linear_model.LogisticRegression(random_state=42)
-            best_params, model = grid_search(X_train, y_train, lr, parameters)
-            print(model)
-            model = OneVsRestClassifier(model)
-            model.fit(X_train, y_train)
-            print(model)
-
-
-    else:
-            lr = linear_model.LogisticRegression(random_state=42)
-            
-            best_params, model = grid_search(X_train, y_train, lr, parameters)
-            
-            model = OneVsOneClassifier(model)
-            model.fit(X_train, y_train)
+    lr = linear_model.LogisticRegression(random_state=42)
+    best_params, model = grid_search(X_train, y_train, lr, parameters)
+    model = OneVsRestClassifier(model) if classificador == "ovr" else OneVsOneClassifier(model)
+    model.fit(X_train, y_train)
 
     return model, best_params
 
@@ -60,18 +45,13 @@ def train_logistic_regression(X_train, y_train, c=0.1, solver="newton-cg", max_i
 #     return svc
 
 def train_svc(bow, y_train, c=1.0, kernel="sigmoid", classificador="ovr"):
-    models = []
-    # c_values = [0.001] #Massa petit
-    c_values = [0.1]
-    if classificador == "ovr":
-        for i in c_values: #Probability=true per roc_curve
-            clf = OneVsRestClassifier(svm.SVC(C=i, kernel=kernel, random_state=42, probability=True)).fit(bow, y_train)
-            models.append((clf, i, kernel, classificador, "svc"))
-    else:
-        for i in c_values:
-            clf = OneVsOneClassifier(svm.SVC(C=i, kernel=kernel, random_state=42)).fit(bow, y_train)
-            models.append((clf, i, kernel, classificador, "svc"))
-    return models
+    parameters = {'C': [0.1, 0.5, 0.75], 'kernel': ['linear', 'poly', 'rbf', 'sigmoid']}
+    sv = svm.SVC(random_state=42, probability=True)
+    best_params, model = grid_search(bow, y_train, sv, parameters)
+
+    model = OneVsRestClassifier(model) if classificador == "ovr" else OneVsOneClassifier(model)
+    model.fit(bow, y_train)
+    return model, best_params
 
 def random_forest(X_train, y_train):
     rf = DecisionTreeClassifier(random_state=42)
