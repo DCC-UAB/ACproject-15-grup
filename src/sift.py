@@ -10,13 +10,16 @@ def extract_sift_features(images, labels, n, mask=None):
     sift = cv2.SIFT_create(nfeatures=n)
     vector = []
     categories = defaultdict(list) #Diccionari de llistes a on guardem la categoria de cada feature
+    labels_nou = []
     for image, label in zip(images, labels):
         _ , descriptors = sift.detectAndCompute(image, mask=mask)
-        vector.extend(descriptors)
-        categories[label].append(descriptors)
+        if descriptors is not None:
+            vector.extend(descriptors)
+            categories[label].append(descriptors)
+            labels_nou.append(label)
 
     vector = np.array(vector)
-    return vector, categories
+    return vector, categories, labels_nou
 
 
 def main():
