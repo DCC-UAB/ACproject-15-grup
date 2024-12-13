@@ -177,3 +177,119 @@ def train_logistic_regression(X_train, y_train, c=0.1, solver="newton-cg", max_i
     model.fit(X_train, y_train)
 
     return model, best_params
+
+
+def main():
+    sift = True
+    print("Carregant i processant el dataset...")
+    dataset_path = 'data/Cervical_Cancer'
+    data_v, labels_v = load_dataset(dataset_path)
+    data, labels_encoded = identifica_quadrant(data_v, labels_v)
+
+    # labels_encoded = encode_labels(labels)
+    X_train, y_train, X_val, y_val, X_test, y_test = train_test(data, labels_encoded)
+    
+    # classes = list(set(labels))
+    features = [128]
+    n_clusters = [1024]
+    dict_bows_train = {}
+    dict_bows_val = {}
+    # llista_bows_test = []
+    passa = [10, 15, 20]
+    width = [2, 5, 10]
+    models = [[], []] # logistic_regression, svc
+
+
+
+    print("Extracció de característiques SIFT i creant histograma BoW...")
+    if sift:
+        try:
+            with open("data/bow_sift_train.pkl", 'rb') as f:
+                bow_train = pickle.load(f)
+            with open("data/bow_sift_val.pkl", 'rb') as f:
+                bow_val = pickle.load(f)
+        #     # with open("data/bow_sift_test.pkl", 'rb') as f:
+        #     #     bow_test = pickle.load(f)
+        except:
+            for i in features:
+                print("Feature number: ", i)
+                # print(X_train, y_train)
+                vectors_train, features_train, y_train = extract_sift_features(X_train, y_train, i, None)
+                print(len(features_train), len(y_train), len(vectors_train))
+
+                vectors_val, features_val, y_val = extract_sift_features(X_val, y_val, i, None)
+                # vectors_test, features_test = extract_sift_features(X_test, y_test, i, None)
+
+                llista_bows_trains = []
+                llista_bows_val = []
+                for j in n_clusters:
+                    print("Number of clusters: ", j)
+                    bow_train = bag_of_words_histogram(vectors_train, features_train, n_clusters=j)
+                    bow_val = bag_of_words_histogram(vectors_val, features_val, n_clusters=j)
+                    # bow_test = bag_of_words_histogram(vectors_test, features_test, n_clusters=j)
+                    # print(bow_train)
+                    llista_bows_trains.append(bow_train)
+                    llista_bows_val.append(bow_val)
+                    # llista_bows_test.extend(bow_test)
+                    with open("data/bow_sift_train.pkl", 'wb') as f:
+                        pickle.dump(bow_train, f)
+                    with open("data/bow_sift_val.pkl", 'wb') as f:
+                        pickle.dump(bow_val, f)
+                dict_bows_train[i] = llista_bows_trains
+                dict_bows_val[i] = llista_bows_trains
+
+        # with open("data/bow_sift_train.pkl", 'wb') as f:
+        #     pickle.dump(dict_bows_train, f)
+        # with open("data/bow_sift_val.pkl", 'wb') as f:
+        #     pickle.dump(dict_bows_val, f)
+        # with open("data/bow_sift_test.pkl", 'wb') as f:
+        #     pickle.dump(llista_bows_test, f)
+
+    else:
+        # try:
+        #     with open("data/bow_dense_train.pkl", 'rb') as f:
+        #         dict_bows_train = pickle.load(f)
+        #     with open("data/bow_dense_val.pkl", 'rb') as f:
+        #         dict_bows_val = pickle.load(f)
+        #     # with open("data/bow_dense_test.pkl", 'rb') as f:
+        #     #     bow_test = pickle.load(f)
+        # except:
+        for i in features:
+            print("Feature number: ", i)
+            for j in passa:
+                for w in width:
+                    vectors_train, features_train = dense_sampling(X_train, y_train, j, w, i)
+                    vectors_val, features_val = dense_sampling(X_val, y_val, j, w, i)
+                    # vectors_test, features_test = dense_sampling(X_test, y_test, j, w, i)
+                    dict_bows_train[i] = []
+                    dict_bows_val[i] = []
+                    for k in n_clusters:
+                        print("Number of clusters: ", k)
+                        bow_train = bag_of_words_histogram(vectors_train, features_train, n_clusters=k)
+                        bow_val = bag_of_words_histogram(vectors_val, features_val, n_clusters=k)
+                        # bow_test = bag_of_words_histogram(vectors_test, features, n_clusters=k)
+                        dict_bows_train[i].append(bow_train)
+                        dict_bows_val[i].append(bow_val)
+                        # llista_bows_test.extend(bow_test)
+
+    # print(dict_bows_train)
+    # print(dict_bows_train[features[0]])
+    # print(y_train)
+    model = train_logistic_regression(bow_train, y_train)
+    y_pred = predir_imatges(bow_val, model[0])
+    prediccio_train = predir_imatges(bow_train, model[0])
+    print(classification_report(y_train, prediccio_train))
+    print(classification_report(y_val, y_pred))
+    # for feature, ll_bow_train in dict_bows_train.items():
+    #     for index in range(len(ll_bow_train)):
+    #         # print(ll_bow_train[index])
+    #         models[0].append([train_logistic_regression(ll_bow_train[index], y_train), feature, n_clusters[index], dict_bows_val[feature][index]])
+    #         models[1].append([train_svc(ll_bow_train[index], y_train), feature, n_clusters[index], dict_bows_val[feature][index]])
+    # # print(models)
+    # return models, y_val
+    # print(classification_report(y_val, model.predict(X_val)))
+
+
+if __name__ == "__main__":
+    main()
+    pass
