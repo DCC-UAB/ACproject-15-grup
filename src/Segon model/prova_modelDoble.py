@@ -1,4 +1,4 @@
-from dense_sampling import *
+
 from sklearn.metrics import classification_report
 import numpy as np
 import pickle
@@ -10,6 +10,7 @@ from collections import defaultdict
 from sklearn import linear_model
 from sklearn.multiclass import OneVsRestClassifier, OneVsOneClassifier
 from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import LabelEncoder
 
 
 def load_dataset(path):
@@ -52,6 +53,11 @@ def preprocessar_imatge(quadrant, llindar):
 # cv2.destroyAllWindows()
 # for quadrant in quadrants:
 #     print(preprocessar_imatge(quadrant, 90))
+def encode_labels(labels):
+    encoders = LabelEncoder()
+    encoders.fit(list(set(labels)))
+    labels_encoded = encoders.transform(labels)
+    return labels_encoded
 
 def identifica_quadrant(X, y, llindar=120): #Això realment pot anar a load_dataset
     quadrants = {}
@@ -258,7 +264,7 @@ def main():
             print("Feature number: ", i)
             for j in passa:
                 for w in width:
-                    vectors_train, features_train = dense_sampling(X_train, y_train, j, w, i)
+                    vectors_train, features_train = dense_sampling(X_train, y_train, j, w, i) #Falta importar dense sampling, o crear arxiu a segonmodel perquè no està adaptat
                     vectors_val, features_val = dense_sampling(X_val, y_val, j, w, i)
                     # vectors_test, features_test = dense_sampling(X_test, y_test, j, w, i)
                     dict_bows_train[i] = []
