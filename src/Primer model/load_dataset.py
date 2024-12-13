@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from collections import defaultdict
 import numpy as np
+from collections import Counter
 
 
 def load_dataset(path):
@@ -56,13 +57,11 @@ def encode_labels(labels):
     return labels_encoded
 
 
-def train_test(dataset, labels, test_size=0, val_size=0.2):
-    X_train, X_val_test, y_train, y_val_test = train_test_split(dataset, labels, train_size=val_size+test_size, random_state=42)
-    
-    # X_test, X_val, y_test, y_val = train_test_split(X_val_test, y_val_test, test_size=test_size/(test_size + val_size), random_state=42)
-    X_val, y_val = X_val_test, y_val_test
+def train_test(dataset, labels, test_size=0.2, val_size=0.2):
+    X_train, X_temp, y_train, y_temp = train_test_split(dataset, labels, test_size=(test_size + val_size), random_state=42)
+    X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=(test_size / (test_size + val_size)), random_state=42)
 
-    return X_train, y_train, X_val, y_val, 0, 0
+    return X_train, y_train, X_val, y_val, X_test, y_test
 
 
 
@@ -71,5 +70,13 @@ def train_test(dataset, labels, test_size=0, val_size=0.2):
 # labels_encoded = encode_labels(labels)
 
 # X_train, y_train, X_val, y_val, X_test, y_test = train_test(data, labels_encoded)
-# for x, y in zip(X_train, y_train):
-#    print("Imatge:", x, "Tipus de cancer:", y)
+# def count_labels(labels):
+#     return Counter(labels)
+
+# train_counts = count_labels(y_train)
+# val_counts = count_labels(y_val)
+# test_counts = count_labels(y_test)
+
+# print("Training set label counts:", train_counts)
+# print("Validation set label counts:", val_counts)
+# print("Test set label counts:", test_counts)
