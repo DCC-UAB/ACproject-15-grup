@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 
 
-def dense_sampling(imatges, labels, pases, amplada_punt, nfeatures ):
+def dense_sampling(imatges, labels, pases, amplada_punt):
     
     height, width = imatges.shape[0], imatges.shape[1]
     keypoints = []
@@ -13,7 +13,7 @@ def dense_sampling(imatges, labels, pases, amplada_punt, nfeatures ):
         for j in range(0, width, pases):
             keypoints.append(cv.KeyPoint(i, j, amplada_punt))
 
-    sift = cv2.SIFT_create(nfeatures=nfeatures)
+    sift = cv2.SIFT_create()
     vector = []
     categories = defaultdict(list) #Diccionari de llistes a on guardem la categoria de cada feature
     for image, label in zip(imatges, labels):
