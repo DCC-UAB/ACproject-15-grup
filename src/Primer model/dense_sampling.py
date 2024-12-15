@@ -8,12 +8,22 @@ import pickle
 def dense_sampling(imatges, labels, pases, amplada_punt, nfeatures ):
     
     height, width = imatges.shape[0], imatges.shape[1]
-    mascara = np.zeros((height, width), dtype=np.uint8)
+    keypoints = []
     for i in range(0, height, pases):
         for j in range(0, width, pases):
-            mascara[i:i+amplada_punt, j:j+amplada_punt] = 1
-    vectors, categories = extract_sift_features(imatges, labels, nfeatures, mascara)
-    return vectors, categories
+            keypoints.append(cv.KeyPoint(i, j, amplada_punt))
+
+    sift = cv2.SIFT_create(nfeatures=nfeatures)
+    vector = []
+    categories = defaultdict(list) #Diccionari de llistes a on guardem la categoria de cada feature
+    for image, label in zip(imatges, labels):
+        _ , descriptors = sift.compute(image, keypoints)
+        if descriptors is not None:
+            vector.extend(descriptors)
+            categories[label].append(descriptors)
+
+    vector = np.array(vector)
+    return vector, categories
 
 def main():
     data, labels = load_dataset('data/Cervical_Cancer')
