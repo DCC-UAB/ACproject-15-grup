@@ -2,22 +2,23 @@ import cv2
 from load_dataset import *
 import pickle
 import numpy as np
-from collections import defaultdict
+from collections import OrderedDict
 
 
 
-def extract_sift_features(images, labels, n, mask=None):
-    sift = cv2.SIFT_create(nfeatures=n)
+def extract_sift_features(sift, images, labels): #nfeatures eliminat
     vector = []
-    categories = defaultdict(list) #Diccionari de llistes a on guardem la categoria de cada feature
+    categories = OrderedDict() #Diccionari de llistes a on guardem la categoria de cada feature
     for image, label in zip(images, labels):
-        _ , descriptors = sift.detectAndCompute(image, mask=mask)
+        if label not in categories.keys():
+            categories[label] = []
+        _ , descriptors = sift.detectAndCompute(image, mask=None)
         if descriptors is not None:
             vector.extend(descriptors)
             categories[label].append(descriptors)
 
-    vector = np.array(vector)
-    return vector, categories
+    vector = np.asarray(vector) #np.array sol canvia ordre? provar
+    return vector.astype(np.float32), categories
 
 
 def main():
