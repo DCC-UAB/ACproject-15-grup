@@ -168,15 +168,72 @@ def show_roc_curve(models, X_val, y_val):
         plt.legend(loc="lower right")
         plt.show()
 
-def main():
-    models, y_val = execute_models()
-    print(models)
-    # nom_models = ["logistic_regression", "svc"] 
-    df = show_metrics(models, y_val)
-    print(df)
-    # show_confusion_matrix(models, bow_val, y_val)
+def visualize_bow_histogram(bow, labels, cluster_names=None):
+    """
+    Visualiza un histograma BoW (Bag of Words).
+    
+    :param bow: numpy array con los histogramas (filas: imágenes, columnas: clústeres)
+    :param labels: numpy array con las etiquetas correspondientes a cada histograma
+    :param cluster_names: lista opcional con los nombres de los clústeres
+    """
+    num_clusters = bow.shape[1]
+    num_images = bow.shape[0]
+    colors=None
+    # Calculamos la media del histograma para todas las imágenes
+    mean_histogram = np.mean(bow, axis=0)
 
-    # show_roc_curve(models, bow_val, y_val)
+    # Etiquetas para los clústeres
+    if cluster_names is None:
+        cluster_names = [f"Cluster {i}" for i in range(num_clusters)]
+    if colors is None:
+        colors = [plt.cm.tab20(i / num_clusters) for i in range(num_clusters)]
+
+    # Crear el gráfico de barras
+    plt.figure(figsize=(10, 6))
+    plt.bar(range(num_clusters), mean_histogram, tick_label=cluster_names, color=colors)
+    plt.xlabel("Visual Words")
+    plt.ylabel("Freqüència mitjana")
+    plt.title("Histograma BoW (Bag of Words)")
+    plt.xticks(rotation=45)
+    plt.grid(axis="y", linestyle="--", alpha=0.7)
+    plt.tight_layout()
+    plt.show()
+
+def main():
+    # models, y_val = execute_models()
+    # print(models)
+    # # nom_models = ["logistic_regression", "svc"] 
+    # df = show_metrics(models, y_val)
+    # print(df)
+    # # show_confusion_matrix(models, bow_val, y_val)
+
+    # # show_roc_curve(models, bow_val, y_val)
+    # def main():
+    # sift = True
+    print("Carregant i processant el dataset...")
+    dataset_path = 'data/Cervical_Cancer'
+    data, labels = load_dataset(dataset_path)
+    labels_encoded = encode_labels(labels)
+    X_train, y_train, X_val, y_val, X_test, y_test = train_test(data, labels_encoded)
+    print("Extracció de característiques SIFT i creant histograma BoW...")
+    
+    # try:
+    #     with open("data/bow_sift_train.pkl", 'rb') as f:
+    #         bow_train = pickle.load(f)
+  
+    #     with open("data/bow_sift_test.pkl", 'rb') as f:
+    #         bow_test = pickle.load(f)
+    # except:
+    print("Creant els BoW...")
+    sift  = cv2.xfeatures2d.SIFT_create()
+
+    vectors_train, train_features = extract_sift_features(sift, X_train, y_train)
+    _, val_features = extract_sift_features(sift, X_val, y_val)
+
+    kmeans = train_visual_words(vectors_train, 10)
+
+    bow_train, labels_train = bag_of_words_histogram(train_features, kmeans)
+    visualize_bow_histogram(bow_train, labels_train)
 
 if __name__ == '__main__':
     main()

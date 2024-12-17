@@ -12,16 +12,6 @@ from sklearn.multiclass import OneVsRestClassifier, OneVsOneClassifier
 from sklearn.model_selection import GridSearchCV
 
 
-# X_train_encoded = ordinal_encoder_car.fit_transform(X_train)
-# X_test_encoded = ordinal_encoder_car.transform(X_test)
-
-# parameters= {'criterion':['entropy'],'max_depth' : [2,4,6,8,10,12]  ,'splitter':["best","ranLogisdom"],'min_samples_split':[2,3,4,6,7]}
-# clf = DecisionTreeClassifier(random_state=42)
-# grid_search_cv = GridSearchCV(estimator=clf, param_grid=parameters, cv=3, n_jobs=14) #Buscarà els millors paràmetres
-
-# grid_search_cv.fit(X_train_encoded, y_train)
-# estimator_entropy = grid_search_cv.best_estimator_
-
 def grid_search(X_train, y_train, model, parameters):
     grid_search_cv = GridSearchCV(estimator=model, param_grid=parameters, cv=3, n_jobs=8) #Buscarà els millors paràmetres
     # print(X_train.shape, y_train.shape)
@@ -56,33 +46,6 @@ def train_svc(bow, y_train, c=1.0, kernel="sigmoid", classificador="ovr"):
     model = OneVsRestClassifier(model) if classificador == "ovr" else OneVsOneClassifier(model)
     model.fit(bow, y_train)
     return model, best_params
-
-def random_forest(X_train, y_train):
-    rf = DecisionTreeClassifier(random_state=42)
-    
-    #Això no sé segur
-    # parameters= {'criterion':['entropy', 'gini'],'max_depth' : [2,4,6,8,10,12]  ,'splitter':["best","random"],'min_samples_split':[2,3,4,6,7]}
-
-    # grid_search_cv = GridSearchCV(estimator=rf, param_grid=parameters, cv=3, n_jobs=14) #Buscarà els millors paràmetres
-    # grid_search_cv.fit(X_train, y_train)
-    
-    rf.fit(X_train, y_train)
-    return rf
-
-def tree_pruning(rf, X_train, y_train):
-    path = rf.cost_complexity_pruning_path(X_train, y_train)
-    ccp_alphas, impurities = path.ccp_alphas, path.impurities
-
-    clfs = []
-    for ccp_alpha in ccp_alphas:
-        clf = DecisionTreeClassifier(random_state=42, ccp_alpha=ccp_alpha)
-        clf.fit(X_train, y_train)
-        clfs.append(clf)
-
-    return clfs #Faltaria analitzar i agafar el millor arbre
-
-def validation(model, X_val, y_val):
-    return model.score(X_val, y_val)
 
 
 def prediccio_tests(model, X_test, y_test):
