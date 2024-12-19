@@ -8,7 +8,7 @@ from train_test import train_logistic_regression
 from train_test import train_svc
 from sklearn import metrics
 import cv2
-
+from visualitzacions import get_metrics
 
 def main():
     # sift = True
@@ -32,7 +32,7 @@ def main():
     vectors_train, train_features = extract_sift_features(sift, X_train, y_train)
     _, val_features = extract_sift_features(sift, X_val, y_val)
 
-    kmeans = train_visual_words(vectors_train, 64)
+    kmeans = train_visual_words(vectors_train, 10)
 
     bow_train, labels_train = bag_of_words_histogram(train_features, kmeans)
     bow_val, labels_val = bag_of_words_histogram(val_features, kmeans)
@@ -52,9 +52,9 @@ def main():
 
     print("Entrenant el model...")
     # print(len(bow_train), len(y_train))
-    model, best_params = train_logistic_regression(bow_train, labels_train)
+    # model, best_params = train_logistic_regression(bow_train, labels_train)
 
-    # model, best_params = train_svc(bow_train, labels_train)
+    model, best_params = train_svc(bow_train, labels_train)
     prediccio = model.predict(bow_val)
     print("confusion matrix: ",metrics.confusion_matrix(labels_val, prediccio))
     print("accuracy: ",metrics.accuracy_score(labels_val, prediccio))
@@ -63,6 +63,12 @@ def main():
     
     print("Overfitting = ", model.score(bow_train, labels_train))
     print("Resultats test = ", model.score(bow_val, labels_val))
+    print("Visualitzant les mètriques...")
+    accuracy, precision, recall, f1 = get_metrics(model, bow_val, labels_val)
+    print("Accuracy: ", accuracy)
+    print("Precision: ", precision)
+    print("Recall: ", recall)
+    print("F1: ", f1)
 
 if __name__=="__main__":
     main()
