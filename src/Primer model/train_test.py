@@ -5,6 +5,7 @@ from sklearn import linear_model, svm
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
 # from sklearn.preprocessing import LabelEncoder
 import numpy as np
 import pickle
@@ -45,6 +46,17 @@ def train_svc(bow, y_train, c=1.0, kernel="sigmoid", classificador="ovr"):
 
     model = OneVsRestClassifier(model) if classificador == "ovr" else OneVsOneClassifier(model)
     model.fit(bow, y_train)
+    return model, best_params
+
+def train_random_forest(X_train, y_train, n_estimators=100, max_depth=None, classificador="ovr"):
+    # n_estimators = [100, 200, 300]
+    n_estimators = [100]
+    # parameters = {'n_estimators': n_estimators, 'max_depth': [None, 10, 20, 30]}
+    parameters = {'n_estimators': n_estimators, 'max_depth': [None]}
+    rf = RandomForestClassifier(random_state=42)
+    best_params, model = grid_search(X_train, y_train, rf, parameters)
+    model = OneVsRestClassifier(model) if classificador == "ovr" else OneVsOneClassifier(model)
+    model.fit(X_train, y_train)
     return model, best_params
 
 
