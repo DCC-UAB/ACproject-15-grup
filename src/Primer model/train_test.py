@@ -23,7 +23,7 @@ def grid_search(X_train, y_train, model, parameters):
 def train_logistic_regression(X_train, y_train, c=0.1, solver="newton-cg", max_iter=5000, penalty="l2", classificador="ovr"):
     # c_values = [0.1, 0.5, 0.75]
     c_values = [0.1]
-    # parameters = {'C': c_values, 'solver': ['lbfgs', 'liblinear', 'newton-cg', 'sag', 'saga'], 'max_iter': [1000, 2500, 5000], 'penalty':["l2"]}
+    # parameters = {'C': c_values, 'solver': ['lbfgs', 'liblinear', 'newton-cg', 'sag', 'saga'], 'penalty':["l2"]}
     parameters = {'C': c_values, 'solver': ['liblinear'], 'max_iter': [1000], 'penalty':["l2"]}
     lr = linear_model.LogisticRegression(random_state=42)
     best_params, model = grid_search(X_train, y_train, lr, parameters)

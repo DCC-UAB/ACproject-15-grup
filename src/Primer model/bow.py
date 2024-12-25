@@ -5,6 +5,13 @@ from sklearn.cluster import KMeans
 import pickle
 
 def train_visual_words(vector_features, n_clusters=1024):
+    """
+    Algorisme KMeans per trobar els visual words.
+
+    :param vector_features: np.array amb els descriptors de les imatges
+    :param n_clusters: int amb el nombre de clusters
+    :return: objecte KMeans entrenat
+    """
     kmeans = KMeans(n_clusters=n_clusters, random_state=42)
     # desc = list(features.values())
     # values_array = np.concatenate(desc, axis=0)
@@ -13,6 +20,13 @@ def train_visual_words(vector_features, n_clusters=1024):
     return kmeans
 
 def bag_of_words_histogram(features, kmeans): #mateix kmeans per train i test
+    """
+    Creació de l'histograma Bag of Words per a les imatges.
+
+    :param features: diccionari amb els descriptors de les imatges
+    :param kmeans: objecte KMeans entrenat
+    :return: np.array amb l'histograma Bag of Words i np.array amb les etiquetes
+    """
     bow = []
     # kmeans = train_visual_words(vector, n_clusters)
     labels = []

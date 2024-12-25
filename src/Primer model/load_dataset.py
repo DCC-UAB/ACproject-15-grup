@@ -16,10 +16,10 @@ def load_dataset(path):
         dataset = []
         labels = []
         for root, dirs, files in os.walk(path):
-            for dir_name in dirs[:3]:  # Només agafa els primers 3 directoris
+            for dir_name in dirs[:5]:  # Només agafa els primers 3 directoris
                 folder_path = os.path.join(root, dir_name)
                 
-                for file in os.listdir(folder_path)[:200]:  # Només agafa les primeres 200 imatges
+                for file in os.listdir(folder_path)[:300]:  # Només agafa les primeres 200 imatges
                     img_path = os.path.join(folder_path, file)
                     img = cv2.imread(img_path)
 
@@ -57,11 +57,13 @@ def encode_labels(labels):
     return labels_encoded
 
 
-def train_test(dataset, labels, test_size=0.2, val_size=0.2):
+def train_test(dataset, labels, test_size=0.2, val_size=0):
     X_train, X_temp, y_train, y_temp = train_test_split(dataset, labels, test_size=(test_size + val_size), random_state=42)
-    X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=(test_size / (test_size + val_size)), random_state=42)
-
-    return X_train, y_train, X_val, y_val, X_test, y_test
+    if val_size != 0:
+        X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=(test_size / (test_size + val_size)), random_state=42)
+        return X_train, y_train, X_test, y_test, X_val, y_val 
+    
+    return X_train, y_train, X_temp, y_temp, None, None
 
 
 

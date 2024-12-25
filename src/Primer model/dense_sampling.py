@@ -1,19 +1,28 @@
 import cv2 as cv
 from load_dataset import *
-from sift import extract_sift_features
 import numpy as np
 import pickle
 
 
-def dense_sampling(imatges, labels, pases, amplada_punt):
+def dense_sampling(sift, imatges, labels, pases, amplada_punt):
+    """
+    Aplica el mètode de dense sampling a les imatges passades com a paràmetre, creant una màscara de punts uniforme 
+    per a totes les imatges.
+
+    :param sift: objecte SIFT
+    :param imatges: np.array amb les imatges (en escala de grisos)
+    :param labels: np.array amb les etiquetes de les imatges
+    :param pases: int amb la distància entre punts de la màscara
+    :param amplada_punt: int que indica la mida del keypoint
+    :return: Descriptors imatges i diccionari amb els descriptors per categoria
+    """
     
     height, width = imatges.shape[0], imatges.shape[1]
     keypoints = []
     for i in range(0, height, pases):
         for j in range(0, width, pases):
-            keypoints.append(cv.KeyPoint(i, j, amplada_punt))
+            keypoints.append(cv.KeyPoint(j, i, amplada_punt))
 
-    sift = cv2.SIFT_create()
     vector = []
     categories = defaultdict(list) #Diccionari de llistes a on guardem la categoria de cada feature
     for image, label in zip(imatges, labels):

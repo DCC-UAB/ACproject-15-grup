@@ -1,12 +1,18 @@
-import cv2
 from load_dataset import *
 import pickle
 import numpy as np
 from collections import OrderedDict
 
 
-
 def extract_sift_features(sift, images, labels): #nfeatures eliminat
+    """
+    Extreu les característiques SIFT de les imatges passades com a paràmetre.
+    
+    :param sift: objecte SIFT
+    :param images: np.array amb les imatges (en escala de grisos)
+    :param labels: np.array amb les etiquetes de les imatges
+    :return: np.array amb els descriptors de les imatges i diccionari amb els descriptors
+    """
     vector = []
     categories = OrderedDict() #Diccionari de llistes a on guardem la categoria de cada feature
     for image, label in zip(images, labels):
