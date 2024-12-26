@@ -3,12 +3,17 @@ import cv2
 import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-from collections import defaultdict
 import numpy as np
-from collections import Counter
 
 
 def load_dataset(path):
+    """
+    Es carrega el dataset de les imatges de càncer uterí i es transformen en escala de grisos.
+    Es crea un pickel amb les imatges i les etiquetes.
+
+    :param path: path on es troben les imatges
+    :return: np.array amb les imatges i una llista amb les etiquetes
+    """
     try:
         with open('data/dataset.pkl', 'rb') as f:
             dataset, labels = pickle.load(f)  # Assegurem que es carreguen tant dataset com labels
@@ -34,23 +39,13 @@ def load_dataset(path):
     return np.array(dataset), labels
 
 
-def preprocess_images(image_paths, target_size=(32, 32)):
-    images = []
-    categories = {k:v for k, v in enumerate(image_paths.keys())}
-    for category in image_paths.values():
-        for path in category[:300]:
-            try:
-                img = cv2.imread(path)
-                if img is not None:
-                    img = cv2.resize(img, target_size)
-                    img = img / 255.0
-                    images.append(img)
-            except Exception as e:
-                print(f"Error processant {path}: {e}")
-    return np.array(images), categories
-
-
 def encode_labels(labels):
+    """
+    Codifica les etiquetes en valors numèrics.
+
+    :param labels: llista amb les etiquetes
+    :return: np.array amb les etiquetes codificades
+    """
     encoders = LabelEncoder()
     encoders.fit(list(set(labels)))
     labels_encoded = encoders.transform(labels)
@@ -58,6 +53,16 @@ def encode_labels(labels):
 
 
 def train_test(dataset, labels, test_size=0.2, val_size=0):
+    """
+    Retorna els conjunts d'entrenament, validació i test.
+    En el cas que no es vulgui validació, es retorna None. Valor per defecte de validació és 0, i test 0.2.
+
+    :param dataset: np.array amb les imatges
+    :param labels: np.array amb les etiquetes
+    :param test_size: float amb la mida del conjunt de test
+    :param val_size: float amb la mida del conjunt de validació
+    :return: np.array amb les imatges d'entrenament, validació i test i les etiquetes d'entrenament, validació i test
+    """
     X_train, X_temp, y_train, y_temp = train_test_split(dataset, labels, test_size=(test_size + val_size), random_state=42)
     if val_size != 0:
         X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=(test_size / (test_size + val_size)), random_state=42)
