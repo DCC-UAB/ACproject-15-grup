@@ -1,0 +1,30 @@
+Entrenant el model...
+[[2. 1. 5. ... 3. 2. 0.]
+ [0. 1. 1. ... 1. 1. 1.]
+ [4. 4. 2. ... 2. 3. 4.]
+ ...
+ [2. 2. 1. ... 3. 2. 1.]
+ [0. 1. 2. ... 2. 3. 1.]
+ [0. 0. 0. ... 1. 0. 1.]] [0 0 0 ... 4 4 4]
+Traceback (most recent call last):
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py", line 125, in <module>
+    main()
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py", line 106, in main
+    model, best_params = train_xgboost(bow_train, labels_train)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/train_test.py", line 64, in train_xgboost
+    best_params, model = grid_search(X_train, y_train, xgb_model, parameters)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/train_test.py", line 21, in grid_search
+    grid_search_cv.fit(X_train, y_train)
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/model_selection/_search.py", line 1019, in fit
+    self._run_search(evaluate_candidates)
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/model_selection/_search.py", line 1573, in _run_search
+    evaluate_candidates(ParameterGrid(self.param_grid))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/model_selection/_search.py", line 132, in __init__
+    raise TypeError(
+TypeError: Parameter grid for parameter 'max_depth' needs to be a list or a numpy array, but got 3 (of type int) instead. Single values need to be wrapped in a list with one element.

@@ -6,6 +6,8 @@ from bow import train_visual_words
 from bow import bag_of_words_histogram
 from train_test import train_logistic_regression
 from train_test import train_svc
+from train_test import train_random_forest
+from train_test import train_xgboost
 from sklearn import metrics
 import cv2
 from visualitzacions import get_metrics
@@ -14,9 +16,9 @@ from dense_sampling import dense_sampling
 
 
 def main():
-    model = "logistic" #"logistic", "svc"
+    model = "xgboost" #"logistic", "svc", "random_forest", "xgboost"
     detector = "sift" #"dense"
-    n_clusters = 64
+    n_clusters = 256
     num_dades = 300
     num_directoris = 5
     pases = 15
@@ -98,7 +100,10 @@ def main():
         model, best_params = train_svc(bow_train, labels_train)
     elif model == "logistic":
         model, best_params = train_logistic_regression(bow_train, labels_train)
-    
+    elif model == "random_forest":
+        model, best_params = train_random_forest(bow_train, labels_train)
+    elif model == "xgboost":
+        model, best_params = train_xgboost(bow_train, labels_train)
     prediccio = model.predict(bow_test)
     print("confusion matrix: ",metrics.confusion_matrix(labels_test, prediccio))
     print("accuracy: ",metrics.accuracy_score(labels_test, prediccio))
