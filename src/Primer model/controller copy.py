@@ -16,6 +16,7 @@ from dense_sampling import dense_sampling
 
 
 def main():
+    wandb.login(key="e04f0be8ca1d2a05e435577f94aad6b2d9ad31bb")
     models = ["logistic", "svc", "random_forest", "xgboost"]
     detector = "sift" #"dense"
     n_clusters = [32, 64, 128, 256, 512, 1024]
@@ -38,10 +39,10 @@ def main():
         sift  = cv2.xfeatures2d.SIFT_create()
         for cluster in n_clusters:
             for model_ in models:
-
+                
                 wandb.init(project="Practica2_SIFT",
                     config={
-                            "model": model,
+                            "model": model_,
                             "features": "SIFT",
                             "n_clusters": cluster,
                             "num_dades": num_dades,

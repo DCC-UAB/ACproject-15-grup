@@ -1,0 +1,8 @@
+{"time":"2024-12-27T17:37:42.3055003+01:00","level":"INFO","msg":"using version","core version":"0.19.1"}
+{"time":"2024-12-27T17:37:42.3062057+01:00","level":"INFO","msg":"created symlink","path":"C:\\Users\\Grau\\Documents\\Grau\\uni\\ProyectoAC\\ACproject-15-grup\\wandb\\run-20241227_173739-36yhxdpr\\logs\\debug-core.log"}
+{"time":"2024-12-27T17:37:42.6048457+01:00","level":"INFO","msg":"created new stream","id":"36yhxdpr"}
+{"time":"2024-12-27T17:37:42.6053624+01:00","level":"INFO","msg":"stream: started","id":"36yhxdpr"}
+{"time":"2024-12-27T17:37:42.6058743+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"36yhxdpr"}
+{"time":"2024-12-27T17:37:42.606386+01:00","level":"INFO","msg":"sender: started","stream_id":"36yhxdpr"}
+{"time":"2024-12-27T17:37:42.6058743+01:00","level":"INFO","msg":"handler: started","stream_id":"36yhxdpr"}
+{"time":"2024-12-27T17:37:43.0574794+01:00","level":"INFO","msg":"Starting system monitor"}

@@ -24,7 +24,7 @@ def load_dataset(path):
             for dir_name in dirs[:5]:  # Només agafa els primers 3 directoris
                 folder_path = os.path.join(root, dir_name)
                 
-                for file in os.listdir(folder_path)[:5000]:  # Només agafa les primeres 200 imatges
+                for file in os.listdir(folder_path)[:2500]:  # Només agafa les primeres 200 imatges
                     img_path = os.path.join(folder_path, file)
                     img = cv2.imread(img_path)
 
