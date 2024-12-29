@@ -29,7 +29,7 @@ def main():
   
     print("Carregant i processant el dataset...")
     dataset_path = 'data/Cervical_Cancer'
-    data, labels = load_dataset(dataset_path)
+    data, labels = load_dataset(dataset_path, num_directoris, num_dades)
     labels_encoded = encode_labels(labels)
     X_train, y_train, X_test, y_test, _, _ = train_test(data, labels_encoded, test_size=test_size, val_size=val_size)
     
@@ -37,11 +37,21 @@ def main():
     if detector == "sift":
         sift  = cv2.xfeatures2d.SIFT_create()
         for cluster in n_clusters:
+            print("Extraient les característiques SIFT...")
+            vectors_train, train_features = extract_sift_features(sift, X_train, y_train)
+            _, val_features = extract_sift_features(sift, X_test, y_test)
+            print("Característiques SIFT extretes\n")
+            print("Creant els BoW's...")
+            kmeans = train_visual_words(vectors_train, cluster)
+
+            bow_train, labels_train = bag_of_words_histogram(train_features, kmeans)
+            bow_test, labels_test = bag_of_words_histogram(val_features, kmeans)
+            print("BoW's creats\n")
             for model_ in models:
 
                 wandb.init(project="Practica2_SIFT",
                     config={
-                            "model": model,
+                            "model": model_,
                             "features": "SIFT",
                             "n_clusters": cluster,
                             "num_dades": num_dades,
@@ -49,16 +59,7 @@ def main():
                             "test_size": test_size,
                             "val_size": val_size
                     })
-        
-                vectors_train, train_features = extract_sift_features(sift, X_train, y_train)
-                _, val_features = extract_sift_features(sift, X_test, y_test)
-                print("Característiques SIFT extretes\n")
-                print("Creant els BoW's...")
-                kmeans = train_visual_words(vectors_train, cluster)
-
-                bow_train, labels_train = bag_of_words_histogram(train_features, kmeans)
-                bow_test, labels_test = bag_of_words_histogram(val_features, kmeans)
-                print("BoW's creats\n")
+    
                 print("\nEntrenant el model...")
 
                 if model_ == "svc":
