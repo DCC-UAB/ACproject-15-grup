@@ -32,7 +32,9 @@ def train_logistic_regression(X_train, y_train, c=0.1, solver="newton-cg", max_i
     return model, best_params
 
 def train_svc(bow, y_train, c=1.0, kernel="sigmoid", classificador="ovr"):
-    parameters = {'C': [0.1, 1, 10, 100], 'kernel': ['linear', 'poly', 'rbf', 'sigmoid'], "decision_function_shape": ['ovo', 'ovr']}
+    # parameters = {'C': [0.1, 1, 10, 100], 'kernel': ['linear', 'poly', 'rbf', 'sigmoid'], "decision_function_shape": ['ovo', 'ovr']}
+    parameters = {'C': [1], 'kernel': ['rbf'], "decision_function_shape": ['ovr']}
+
     sv = svm.SVC(random_state=42, probability=True)
     best_params, model = grid_search(bow, y_train, sv, parameters)
 
@@ -41,7 +43,7 @@ def train_svc(bow, y_train, c=1.0, kernel="sigmoid", classificador="ovr"):
     return model, best_params
 
 def train_random_forest(X_train, y_train, n_estimators=100, max_depth=None, classificador="ovr"):
-    parameters = {'n_estimators': [100, 200, 300], 'max_depth': [None, 10, 20, 30], "criterion": ['gini', 'entropy'], "bootstrap": [True, False]}
+    parameters = {'n_estimators': [100, 200, 300], 'max_depth': [10, 20, 30], "criterion": ['gini', 'entropy'], "bootstrap": [True, False]}
     # parameters = {'n_estimators': [100], 'max_depth': [None]}
     rf = RandomForestClassifier(random_state=42)
     best_params, model = grid_search(X_train, y_train, rf, parameters)
@@ -51,7 +53,8 @@ def train_random_forest(X_train, y_train, n_estimators=100, max_depth=None, clas
 
 def train_xgboost(X_train, y_train, classificador="ovr"):
     num_class = len(np.unique(y_train))
-    parameters = {'max_depth': [3, 6, 10], 'n_estimators': [100, 200, 300], 'learning_rate': [0.01, 0.05, 0.1], 'eval_metric': ['mlogloss'], "lambda": [0, 0.1, 1], "alpha": [0, 0.1, 1], "objective":["multi:softmax"]}
+    # parameters = {'max_depth': [3, 6, 10], 'n_estimators': [100, 200, 300], 'learning_rate': [0.01, 0.05, 0.1], 'eval_metric': ['mlogloss'], "lambda": [0, 0.1, 1], "alpha": [0, 0.1, 1], "objective":["multi:softmax"]}
+    parameters = {'eval_metric': ['logloss'], 'learning_rate': [0.1], 'max_depth': [3], 'n_estimators': [100]}
     xgb_model = xgb.XGBClassifier(random_state=42, num_class=num_class)
     best_params, model = grid_search(X_train, y_train, xgb_model, parameters)
     model = OneVsRestClassifier(model) if classificador == "ovr" else OneVsOneClassifier(model)

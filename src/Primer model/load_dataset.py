@@ -8,14 +8,14 @@ import numpy as np
 
 def load_dataset(path, num_directoris=3, num_dades=100):
     """
-    Es carrega el dataset de les imatges de càncer uterí i es transformen en escala de grisos.
+    Es carrega el dataset de les imatges i es transformen en escala de grisos.
     Es crea un pickel amb les imatges i les etiquetes.
 
     :param path: path on es troben les imatges
     :return: np.array amb les imatges i una llista amb les etiquetes
     """
     try:
-        with open('data/dataset.pkl', 'rb') as f:
+        with open('data/dataset2.pkl', 'rb') as f:
             dataset, labels = pickle.load(f)  # Assegurem que es carreguen tant dataset com labels
     except:
         dataset = []
@@ -23,7 +23,6 @@ def load_dataset(path, num_directoris=3, num_dades=100):
         for root, dirs, files in os.walk(path):
             for dir_name in dirs[:num_directoris]:  # Només agafa els primers 3 directoris
                 folder_path = os.path.join(root, dir_name)
-                
                 for file in os.listdir(folder_path)[:num_dades]:  # Només agafa les primeres 200 imatges
                     img_path = os.path.join(folder_path, file)
                     img = cv2.imread(img_path)
@@ -34,7 +33,7 @@ def load_dataset(path, num_directoris=3, num_dades=100):
                         dataset.append(img_gray)
                         labels.append(dir_name)
         # Guarda tant dataset com labels al pickle
-        with open('data/dataset.pkl', 'wb') as f:
+        with open('data/dataset2.pkl', 'wb') as f:
             pickle.dump((dataset, labels), f)
     return np.array(dataset), labels
 
