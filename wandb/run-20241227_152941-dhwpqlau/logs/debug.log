@@ -1,0 +1,29 @@
+2024-12-27 15:29:41,959 INFO    MainThread:16096 [wandb_setup.py:_flush():68] Current SDK version is 0.19.1
+2024-12-27 15:29:41,975 INFO    MainThread:16096 [wandb_setup.py:_flush():68] Configure stats pid to 16096
+2024-12-27 15:29:41,975 INFO    MainThread:16096 [wandb_setup.py:_flush():68] Loading settings from C:\Users\Grau\.config\wandb\settings
+2024-12-27 15:29:41,975 INFO    MainThread:16096 [wandb_setup.py:_flush():68] Loading settings from C:\Users\Grau\Documents\Grau\uni\ProyectoAC\ACproject-15-grup\wandb\settings
+2024-12-27 15:29:41,975 INFO    MainThread:16096 [wandb_setup.py:_flush():68] Loading settings from environment variables
+2024-12-27 15:29:41,975 INFO    MainThread:16096 [wandb_init.py:_log_setup():528] Logging user logs to C:\Users\Grau\Documents\Grau\uni\ProyectoAC\ACproject-15-grup\wandb\run-20241227_152941-dhwpqlau\logs\debug.log
+2024-12-27 15:29:41,975 INFO    MainThread:16096 [wandb_init.py:_log_setup():529] Logging internal logs to C:\Users\Grau\Documents\Grau\uni\ProyectoAC\ACproject-15-grup\wandb\run-20241227_152941-dhwpqlau\logs\debug-internal.log
+2024-12-27 15:29:41,975 INFO    MainThread:16096 [wandb_init.py:init():644] calling init triggers
+2024-12-27 15:29:41,975 INFO    MainThread:16096 [wandb_init.py:init():650] wandb.init called with sweep_config: {}
+config: {'model': 'logistic', 'features': 'SIFT', 'n_clusters': 32, 'num_dades': 5000, 'num_directoris': 5, 'test_size': 0.2, 'val_size': 0}
+2024-12-27 15:29:41,975 INFO    MainThread:16096 [wandb_init.py:init():680] starting backend
+2024-12-27 15:29:41,975 INFO    MainThread:16096 [wandb_init.py:init():684] sending inform_init request
+2024-12-27 15:29:44,671 INFO    MainThread:16096 [backend.py:_multiprocessing_setup():104] multiprocessing start_methods=spawn, using: spawn
+2024-12-27 15:29:44,696 INFO    MainThread:16096 [wandb_init.py:init():697] backend started and connected
+2024-12-27 15:29:45,484 INFO    MainThread:16096 [wandb_init.py:init():790] updated telemetry
+2024-12-27 15:29:46,509 INFO    MainThread:16096 [wandb_init.py:init():822] communicating run to backend with 90.0 second timeout
+2024-12-27 15:29:48,115 INFO    MainThread:16096 [wandb_init.py:init():874] starting run threads in backend
+2024-12-27 15:29:50,461 INFO    MainThread:16096 [wandb_run.py:_console_start():2374] atexit reg
+2024-12-27 15:29:50,464 INFO    MainThread:16096 [wandb_run.py:_redirect():2224] redirect: wrap_raw
+2024-12-27 15:29:50,464 INFO    MainThread:16096 [wandb_run.py:_redirect():2289] Wrapping output streams.
+2024-12-27 15:29:50,464 INFO    MainThread:16096 [wandb_run.py:_redirect():2314] Redirects installed.
+2024-12-27 15:29:50,538 INFO    MainThread:16096 [wandb_init.py:init():916] run started, returning control to user process
+2024-12-27 15:52:14,957 INFO    MainThread:16096 [wandb_run.py:_finish():2100] finishing run grau-cladera-universitat-aut-noma-de-barcelona/Practica2_SIFT/dhwpqlau
+2024-12-27 15:52:14,960 INFO    MainThread:16096 [wandb_run.py:_atexit_cleanup():2339] got exitcode: 0
+2024-12-27 15:52:14,962 INFO    MainThread:16096 [wandb_run.py:_restore():2321] restore
+2024-12-27 15:52:14,963 INFO    MainThread:16096 [wandb_run.py:_restore():2327] restore done
+2024-12-27 15:52:16,920 INFO    MainThread:16096 [wandb_run.py:_footer_history_summary_info():3892] rendering history
+2024-12-27 15:52:16,924 INFO    MainThread:16096 [wandb_run.py:_footer_history_summary_info():3924] rendering summary
+2024-12-27 15:52:16,948 INFO    MainThread:16096 [wandb_run.py:_footer_sync_info():3853] logging synced files

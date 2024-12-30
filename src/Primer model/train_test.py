@@ -2,7 +2,7 @@ from load_dataset import *
 from sift import *
 from dense_sampling import *
 from sklearn import linear_model, svm
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV, RandomizedSearchCV, cross_val_score
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 from sklearn.multiclass import OneVsRestClassifier, OneVsOneClassifier
@@ -24,7 +24,20 @@ def grid_search(X_train, y_train, model, parameters):
     grid_search_cv.fit(X_train, y_train)
     return grid_search_cv.best_params_, grid_search_cv.best_estimator_
 
-def train_logistic_regression(X_train, y_train, c=0.1, solver="newton-cg", max_iter=5000, penalty="l2", classificador="ovr"):
+def randomized_search(X_train, y_train, model, parameters, n_iter=50):
+    random_search_cv = RandomizedSearchCV(
+        estimator=model,
+        param_distributions=parameters,
+        n_iter=n_iter,  # Número de combinaciones aleatorias a probar
+        cv=3,           # Número de folds en la validación cruzada
+        n_jobs=-1,       # Usa todos los núcleos disponibles
+        random_state=42, # Semilla para reproducibilidad
+        verbose=2        # Nivel de detalle en la salida
+    )
+    random_search_cv.fit(X_train, y_train)
+    return random_search_cv.best_params_, random_search_cv.best_estimator_
+
+def train_logistic_regression(X_train, y_train, c=0.1, solver="newton-cg", max_iter=5000, penalty="l2", classificador="ovo"):
     """
     Mètode que entrena un model de regressió logística amb els paràmetres donats.
 
@@ -38,7 +51,7 @@ def train_logistic_regression(X_train, y_train, c=0.1, solver="newton-cg", max_i
     :return: model de regressió logística entrenat
     
     """
-    c_values = [0.001, 0.01, 0.1, 1, 10, 100]
+    c_values = [0.01, 0.1, 1, 10]
     # c_values = [0.1]
     parameters = {'C': c_values, 'solver': ['lbfgs', 'liblinear', 'newton-cg', 'saga'], 'penalty':["l2"]}
     # parameters = {'C': c_values, 'solver': ['liblinear'], 'max_iter': [1000], 'penalty':["l2"]}

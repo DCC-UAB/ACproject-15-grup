@@ -1,0 +1,14 @@
+Característiques SIFT extretes
+
+Creant els BoW's...
+BoW's creats
+
+
+Entrenant el model...
+Traceback (most recent call last):
+  File "c:\Users\Grau\Documents\Grau\uni\ProyectoAC\ACproject-15-grup\src\Primer model\controller copy.py", line 150, in <module>
+    main()
+  File "c:\Users\Grau\Documents\Grau\uni\ProyectoAC\ACproject-15-grup\src\Primer model\controller copy.py", line 72, in main
+    model, best_params = train_xgboost(bow_train, labels_train)
+    ^^^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable OneVsRestClassifier object
