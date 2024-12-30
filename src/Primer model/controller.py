@@ -29,7 +29,7 @@ def main():
   
     print("Carregant i processant el dataset...")
     dataset_path = 'data/Cervical_Cancer'
-    data, labels = load_dataset(dataset_path)
+    data, labels = load_dataset(dataset_path, num_dades, num_directoris)
     labels_encoded = encode_labels(labels)
     X_train, y_train, X_test, y_test, _, _ = train_test(data, labels_encoded, test_size=test_size, val_size=val_size)
     print("Extracció de característiques SIFT i creant histograma BoW...")
