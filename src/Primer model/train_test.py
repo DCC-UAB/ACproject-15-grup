@@ -2,24 +2,42 @@ from load_dataset import *
 from sift import *
 from dense_sampling import *
 from sklearn import linear_model, svm
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
-# from sklearn.preprocessing import LabelEncoder
 import numpy as np
-import pickle
 from sklearn.multiclass import OneVsRestClassifier, OneVsOneClassifier
 from sklearn.model_selection import GridSearchCV
 import xgboost as xgb
 
 
 def grid_search(X_train, y_train, model, parameters):
+    """
+    Mètode que busca els millors paràmetres per un model donat.
+
+    :param X_train: np.array amb les característiques de les imatges
+    :param y_train: np.array amb les etiquetes de les imatges
+    :param model: model a entrenar
+    :param parameters: diccionari amb els paràmetres a buscar
+    :return: millors paràmetres i millor model
+    """
     grid_search_cv = GridSearchCV(estimator=model, param_grid=parameters, cv=3, n_jobs=8) #Buscarà els millors paràmetres
     grid_search_cv.fit(X_train, y_train)
     return grid_search_cv.best_params_, grid_search_cv.best_estimator_
 
 def train_logistic_regression(X_train, y_train, c=0.1, solver="newton-cg", max_iter=5000, penalty="l2", classificador="ovr"):
+    """
+    Mètode que entrena un model de regressió logística amb els paràmetres donats.
+
+    :param X_train: np.array amb les característiques de les imatges
+    :param y_train: np.array amb les etiquetes de les imatges
+    :param c: float amb el valor de C
+    :param solver: string amb el tipus de solver
+    :param max_iter: int amb el nombre màxim d'iteracions
+    :param penalty: string amb el tipus de penalització
+    :param classificador: string amb el tipus de classificador
+    :return: model de regressió logística entrenat
+    
+    """
     c_values = [0.001, 0.01, 0.1, 1, 10, 100]
     # c_values = [0.1]
     parameters = {'C': c_values, 'solver': ['lbfgs', 'liblinear', 'newton-cg', 'saga'], 'penalty':["l2"]}
@@ -32,6 +50,16 @@ def train_logistic_regression(X_train, y_train, c=0.1, solver="newton-cg", max_i
     return model, best_params
 
 def train_svc(bow, y_train, c=1.0, kernel="sigmoid", classificador="ovr"):
+    """
+    Mètode que entrena un model SVC amb els paràmetres donats.
+
+    :param bow: np.array amb les característiques de les imatges
+    :param y_train: np.array amb les etiquetes de les imatges
+    :param c: float amb el valor de C
+    :param kernel: string amb el tipus de kernel
+    :param classificador: string amb el tipus de classificador
+    :return: model SVC entrenat
+    """
     # parameters = {'C': [0.1, 1, 10, 100], 'kernel': ['linear', 'poly', 'rbf', 'sigmoid'], "decision_function_shape": ['ovo', 'ovr']}
     parameters = {'C': [1], 'kernel': ['rbf'], "decision_function_shape": ['ovr']}
 
@@ -43,6 +71,16 @@ def train_svc(bow, y_train, c=1.0, kernel="sigmoid", classificador="ovr"):
     return model, best_params
 
 def train_random_forest(X_train, y_train, n_estimators=100, max_depth=None, classificador="ovr"):
+    """
+    Mètode que entrena un model Random Forest amb els paràmetres donats.
+
+    :param X_train: np.array amb les característiques de les imatges
+    :param y_train: np.array amb les etiquetes de les imatges
+    :param n_estimators: int amb el nombre d'estimadors
+    :param max_depth: int amb la profunditat màxima
+    :param classificador: string amb el tipus de classificador
+    :return: model Random Forest entrenat
+    """
     parameters = {'n_estimators': [100, 200, 300], 'max_depth': [10, 20, 30], "criterion": ['gini', 'entropy'], "bootstrap": [True, False]}
     # parameters = {'n_estimators': [100], 'max_depth': [None]}
     rf = RandomForestClassifier(random_state=42)
@@ -52,6 +90,14 @@ def train_random_forest(X_train, y_train, n_estimators=100, max_depth=None, clas
     return model, best_params
 
 def train_xgboost(X_train, y_train, classificador="ovr"):
+    """
+    Mètode que entrena un model XGBoost amb els paràmetres donats.
+
+    :param X_train: np.array amb les característiques de les imatges
+    :param y_train: np.array amb les etiquetes de les imatges
+    :param classificador: string amb el tipus de classificador
+    :return: model XGBoost entrenat
+    """
     num_class = len(np.unique(y_train))
     # parameters = {'max_depth': [3, 6, 10], 'n_estimators': [100, 200, 300], 'learning_rate': [0.01, 0.05, 0.1], 'eval_metric': ['mlogloss'], "lambda": [0, 0.1, 1], "alpha": [0, 0.1, 1], "objective":["multi:softmax"]}
     parameters = {'eval_metric': ['logloss'], 'learning_rate': [0.1], 'max_depth': [3], 'n_estimators': [100]}
@@ -60,17 +106,6 @@ def train_xgboost(X_train, y_train, classificador="ovr"):
     model = OneVsRestClassifier(model) if classificador == "ovr" else OneVsOneClassifier(model)
     model.fit(X_train, y_train)
     return model, best_params
-
-
-def prediccio_tests(model, X_test, y_test):
-    prediccio = model.predict(X_test)
-    results = {}
-    results["train_accuracy"] = accuracy_score(y_test, prediccio)
-    results["train_precision"] = precision_score(y_test, prediccio)
-    results["train_recall"] = recall_score(y_test, prediccio)
-    results["train_f1"] = f1_score(y_test, prediccio)
-
-    return prediccio, results
 
 def main():
     print("Carregant dataset...")

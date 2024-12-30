@@ -10,7 +10,7 @@ from train_test import train_random_forest
 from train_test import train_xgboost
 from sklearn import metrics
 import cv2
-from visualitzacions import get_metrics
+from visualitzacions import get_metrics, show_roc_curve
 import wandb
 from dense_sampling import dense_sampling
 
@@ -18,14 +18,14 @@ from dense_sampling import dense_sampling
 def main():
     model = "xgboost" #"logistic", "svc", "random_forest", "xgboost"
     detector = "sift" #"dense"
-    n_clusters = 256
+    n_clusters = 128
     num_dades = 300
     num_directoris = 5
     pases = 15
     amplada_punt = 5
     test_size = 0.2
     val_size = 0
-
+    class_multiclass = "ovr" #"ovr", "ovo"
   
     print("Carregant i processant el dataset...")
     dataset_path = 'data/Cervical_Cancer'
@@ -97,13 +97,13 @@ def main():
     # print(len(bow_train), len(y_train))
     # model, best_params = train_logistic_regression(bow_train, labels_train)
     if model == "svc":
-        model, best_params = train_svc(bow_train, labels_train)
+        model, best_params = train_svc(bow_train, labels_train, classificador=class_multiclass)
     elif model == "logistic":
-        model, best_params = train_logistic_regression(bow_train, labels_train)
+        model, best_params = train_logistic_regression(bow_train, labels_train, classificador=class_multiclass)
     elif model == "random_forest":
-        model, best_params = train_random_forest(bow_train, labels_train)
+        model, best_params = train_random_forest(bow_train, labels_train, classificador=class_multiclass)
     elif model == "xgboost":
-        model, best_params = train_xgboost(bow_train, labels_train)
+        model, best_params = train_xgboost(bow_train, labels_train, class_multiclass)
     prediccio = model.predict(bow_test)
     print("confusion matrix: ",metrics.confusion_matrix(labels_test, prediccio))
     print("accuracy: ",metrics.accuracy_score(labels_test, prediccio))
@@ -120,6 +120,7 @@ def main():
     print("Precision: ", precision)
     print("Recall: ", recall)
     print("F1: ", f1)
+    # show_roc_curve(model, bow_test, labels_test)
 
 if __name__=="__main__":
     main()

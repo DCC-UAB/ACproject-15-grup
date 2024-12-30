@@ -1,0 +1,8 @@
+Entrenant el model...
+confusion matrix:  [[143   6]
+ [  7 164]]
+accuracy:  0.959375
+Params:  {'C': 1, 'decision_function_shape': 'ovr', 'kernel': 'rbf'}
+Overfitting =  0.94921875
+Resultats test =  0.959375
+Visualitzant les mètriques...

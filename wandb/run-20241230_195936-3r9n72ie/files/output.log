@@ -1,0 +1,8 @@
+Entrenant el model...
+Traceback (most recent call last):
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py", line 125, in <module>
+    main()
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py", line 100, in main
+    model, best_params = train_svc(X_train=bow_train, labels_train=labels_train, classificador=class_multiclass)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: train_svc() got an unexpected keyword argument 'X_train'

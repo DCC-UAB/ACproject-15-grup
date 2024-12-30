@@ -1,0 +1,17 @@
+{"time":"2024-12-29T21:19:49.271453851+01:00","level":"INFO","msg":"using version","core version":"0.19.1"}
+{"time":"2024-12-29T21:19:49.271489023+01:00","level":"INFO","msg":"created symlink","path":"/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/wandb/run-20241229_211949-zrfp2vlu/logs/debug-core.log"}
+{"time":"2024-12-29T21:19:49.377486591+01:00","level":"INFO","msg":"created new stream","id":"zrfp2vlu"}
+{"time":"2024-12-29T21:19:49.377508382+01:00","level":"INFO","msg":"stream: started","id":"zrfp2vlu"}
+{"time":"2024-12-29T21:19:49.377546885+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"zrfp2vlu"}
+{"time":"2024-12-29T21:19:49.377590598+01:00","level":"INFO","msg":"sender: started","stream_id":"zrfp2vlu"}
+{"time":"2024-12-29T21:19:49.377617805+01:00","level":"INFO","msg":"handler: started","stream_id":"zrfp2vlu"}
+{"time":"2024-12-29T21:19:49.635607754+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-29T21:20:30.118411718+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-29T21:20:30.118983855+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-29T21:20:30.922492812+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-29T21:20:31.118958696+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history steps 0-0, summary, console lines 1-7","runtime_seconds":0.196366132}],"total_operations":1}}
+{"time":"2024-12-29T21:20:32.259342507+01:00","level":"INFO","msg":"stream: closing","id":"zrfp2vlu"}
+{"time":"2024-12-29T21:20:32.259356227+01:00","level":"INFO","msg":"handler: closed","stream_id":"zrfp2vlu"}
+{"time":"2024-12-29T21:20:32.259362684+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"zrfp2vlu"}
+{"time":"2024-12-29T21:20:32.259371623+01:00","level":"INFO","msg":"sender: closed","stream_id":"zrfp2vlu"}
+{"time":"2024-12-29T21:20:32.259409081+01:00","level":"INFO","msg":"stream: closed","id":"zrfp2vlu"}

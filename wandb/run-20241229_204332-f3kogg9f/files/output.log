@@ -1,0 +1,8 @@
+Entrenant el model...
+confusion matrix:  [[79 25]
+ [25 71]]
+accuracy:  0.75
+Params:  {'bootstrap': False, 'criterion': 'gini', 'max_depth': None, 'n_estimators': 100}
+Overfitting =  1.0
+Resultats test =  0.75
+Visualitzant les mètriques...

@@ -1,0 +1,9 @@
+Entrenant el model...
+Traceback (most recent call last):
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py", line 126, in <module>
+    main()
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py", line 123, in main
+    show_roc_curve(model, bow_test, labels_test)
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/visualitzacions.py", line 149, in show_roc_curve
+    for tipus_model in models:
+TypeError: 'OneVsRestClassifier' object is not iterable
