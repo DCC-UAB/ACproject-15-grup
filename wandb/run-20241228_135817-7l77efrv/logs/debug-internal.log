@@ -1,0 +1,16 @@
+{"time":"2024-12-28T13:58:18.0703143+01:00","level":"INFO","msg":"using version","core version":"0.19.1"}
+{"time":"2024-12-28T13:58:18.0703143+01:00","level":"INFO","msg":"created symlink","path":"C:\\Users\\Grau\\Documents\\Grau\\uni\\ProyectoAC\\ACproject-15-grup\\wandb\\run-20241228_135817-7l77efrv\\logs\\debug-core.log"}
+{"time":"2024-12-28T13:58:19.1674984+01:00","level":"INFO","msg":"created new stream","id":"7l77efrv"}
+{"time":"2024-12-28T13:58:19.1674984+01:00","level":"INFO","msg":"stream: started","id":"7l77efrv"}
+{"time":"2024-12-28T13:58:19.1674984+01:00","level":"INFO","msg":"handler: started","stream_id":"7l77efrv"}
+{"time":"2024-12-28T13:58:19.1674984+01:00","level":"INFO","msg":"sender: started","stream_id":"7l77efrv"}
+{"time":"2024-12-28T13:58:19.1674984+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"7l77efrv"}
+{"time":"2024-12-28T13:58:19.8617949+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-28T14:04:36.5644372+01:00","level":"INFO","msg":"stream: closing","id":"7l77efrv"}
+{"time":"2024-12-28T14:04:36.5649747+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-28T14:04:36.5670045+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-28T14:04:37.1711556+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-28T14:04:37.3864354+01:00","level":"INFO","msg":"handler: closed","stream_id":"7l77efrv"}
+{"time":"2024-12-28T14:04:37.3864354+01:00","level":"INFO","msg":"sender: closed","stream_id":"7l77efrv"}
+{"time":"2024-12-28T14:04:37.3864354+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"7l77efrv"}
+{"time":"2024-12-28T14:04:37.3869928+01:00","level":"INFO","msg":"stream: closed","id":"7l77efrv"}

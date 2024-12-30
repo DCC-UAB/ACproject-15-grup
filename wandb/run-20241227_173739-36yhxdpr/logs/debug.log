@@ -14,3 +14,16 @@ config: {'model': 'logistic', 'features': 'SIFT', 'n_clusters': 32, 'num_dades':
 2024-12-27 17:37:41,680 INFO    MainThread:15356 [wandb_init.py:init():697] backend started and connected
 2024-12-27 17:37:41,811 INFO    MainThread:15356 [wandb_init.py:init():790] updated telemetry
 2024-12-27 17:37:42,422 INFO    MainThread:15356 [wandb_init.py:init():822] communicating run to backend with 90.0 second timeout
+2024-12-27 17:37:43,015 INFO    MainThread:15356 [wandb_init.py:init():874] starting run threads in backend
+2024-12-27 17:37:43,763 INFO    MainThread:15356 [wandb_run.py:_console_start():2374] atexit reg
+2024-12-27 17:37:43,763 INFO    MainThread:15356 [wandb_run.py:_redirect():2224] redirect: wrap_raw
+2024-12-27 17:37:43,763 INFO    MainThread:15356 [wandb_run.py:_redirect():2289] Wrapping output streams.
+2024-12-27 17:37:43,763 INFO    MainThread:15356 [wandb_run.py:_redirect():2314] Redirects installed.
+2024-12-27 17:37:43,781 INFO    MainThread:15356 [wandb_init.py:init():916] run started, returning control to user process
+2024-12-27 18:00:00,891 INFO    MainThread:15356 [wandb_run.py:_finish():2100] finishing run grau-cladera-universitat-aut-noma-de-barcelona/Practica2_SIFT/36yhxdpr
+2024-12-27 18:00:00,893 INFO    MainThread:15356 [wandb_run.py:_atexit_cleanup():2339] got exitcode: 0
+2024-12-27 18:00:00,895 INFO    MainThread:15356 [wandb_run.py:_restore():2321] restore
+2024-12-27 18:00:00,896 INFO    MainThread:15356 [wandb_run.py:_restore():2327] restore done
+2024-12-27 18:00:02,890 INFO    MainThread:15356 [wandb_run.py:_footer_history_summary_info():3892] rendering history
+2024-12-27 18:00:02,894 INFO    MainThread:15356 [wandb_run.py:_footer_history_summary_info():3924] rendering summary
+2024-12-27 18:00:02,918 INFO    MainThread:15356 [wandb_run.py:_footer_sync_info():3853] logging synced files

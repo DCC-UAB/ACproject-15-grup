@@ -1,0 +1,18 @@
+Característiques SIFT extretes
+
+Creant els BoW's...
+BoW's creats
+
+
+Entrenant el model...
+Model entrenat
+
+Confusion Matrix:  [[472  11  18  10   5]
+ [ 15 455   5   6  20]
+ [ 25   5 468   4   7]
+ [  0   0   1 493   0]
+ [  1   2   1   2 474]]
+Accuracy:  0.9448
+Params:  {'bootstrap': False, 'criterion': 'gini', 'max_depth': 30, 'n_estimators': 300}
+
+Visualitzant les mètriques...
