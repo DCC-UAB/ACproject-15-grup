@@ -37,7 +37,6 @@ def show_metrics(models, y_val):
                 table.append({'model': m[0][0].estimator, 'n_features': m[1], 'n_clusters': m[2], 
                             'c': m[0][1]['C'], 'kernel': m[0][1]["kernel"], 'accuracy': accuracy, 'precision': precision, 'recall': recall, 'f1': f1})
 
-# Convert the list of dictionaries to a DataFrame
     df = pd.DataFrame(table)
     df = round(df, 2)
     # df = df.sort_values(by=['accuracy', 'precision', 'recall', 'f1'], ascending=False)
@@ -142,53 +141,95 @@ def show_confusion_matrix(models, X_val, y_val):
 
 
 
-def show_roc_curve(models, X_val, y_val):
+# def show_roc_curve(models, X_val, y_val):
+#     roc_auc = []
+#     colors = ['blue', 'red', 'green', 'purple', 'orange', 'pink', 'brown', 'black', 'yellow', 'gray']
+#     y_val_bin = label_binarize(y_val, classes=[0, 1, 2])
+#     for tipus_model in models:
+#         plt.figure()
+
+#         for index, m in enumerate(tipus_model):
+#             y_pred = m[0].predict_proba(X_val)
+#             for i in range(y_val_bin.shape[1]):
+#                 fpr, tpr, thresholds = roc_curve(y_val_bin[:, i], y_pred[:, i])
+#                 roc_auc.append(auc(fpr, tpr))
+#                 plt.plot(fpr, tpr, color=colors[index], lw=2, label=f'ROC curve (AUC = {roc_auc[-1]:.2f})')
+#                 plt.plot([0, 1], [0, 1], color='gray', lw=2, linestyle='--')
+
+#                 for j, threshold in enumerate(thresholds):
+#                     plt.annotate(f'{threshold:.2f}', (fpr[j], tpr[j]), textcoords="offset points", xytext=(10,-10), ha='center')
+
+#         plt.xlim([0.0, 1.0])
+#         plt.ylim([0.0, 1.05])
+#         plt.xlabel('False Positive Rate')
+#         plt.ylabel('True Positive Rate')
+#         plt.title(f'ROC Curve for {m[4]}')
+#         plt.legend(loc="lower right")
+#         plt.show()
+
+from sklearn.metrics import roc_curve, auc
+from sklearn.preprocessing import label_binarize
+import matplotlib.pyplot as plt
+
+def show_roc_curve(model, X_val, y_val):
+    """
+    Muestra la curva ROC para un único modelo clasificador multiclase.
+    
+    Args:
+        model: Modelo entrenado con soporte para `predict_proba`.
+        X_val: Datos de validación.
+        y_val: Etiquetas de validación.
+    """
+    # Binarizar las etiquetas para One-vs-Rest
+    n_classes = len(set(y_val))
+    y_val_bin = label_binarize(y_val, classes=range(n_classes))
+    
+    # Colores para las curvas
+    colors = ['blue', 'red', 'green', 'purple', 'orange']
+    
+    # Crear la figura
+    plt.figure(figsize=(10, 8))
     roc_auc = []
-    colors = ['blue', 'red', 'green', 'purple', 'orange', 'pink', 'brown', 'black', 'yellow', 'gray']
-    y_val_bin = label_binarize(y_val, classes=[0, 1, 2])  # Adjust classes as per your dataset
-    for tipus_model in models:
-        plt.figure()
 
-        for index, m in enumerate(tipus_model):
-            y_pred = m[0].predict_proba(X_val)
-            for i in range(y_val_bin.shape[1]):
-                fpr, tpr, thresholds = roc_curve(y_val_bin[:, i], y_pred[:, i])
-                roc_auc.append(auc(fpr, tpr))
-                plt.plot(fpr, tpr, color=colors[index], lw=2, label=f'ROC curve (AUC = {roc_auc[-1]:.2f})')
-                plt.plot([0, 1], [0, 1], color='gray', lw=2, linestyle='--')
+    # Generar curvas ROC para cada clase
+    y_pred = model.predict_proba(X_val)
+    for i in range(n_classes):
+        fpr, tpr, thresholds = roc_curve(y_val_bin[:, i], y_pred[:, i])
+        auc_score = auc(fpr, tpr)
+        roc_auc.append(auc_score)
+        plt.plot(fpr, tpr, color=colors[i], lw=2, label=f'Clase {i} (AUC = {auc_score:.2f})')
 
-                for j, threshold in enumerate(thresholds):
-                    plt.annotate(f'{threshold:.2f}', (fpr[j], tpr[j]), textcoords="offset points", xytext=(10,-10), ha='center')
+    # Línea diagonal (clasificación aleatoria)
+    plt.plot([0, 1], [0, 1], color='gray', linestyle='--', lw=2, label='Aleatorio (AUC = 0.5)')
 
-        plt.xlim([0.0, 1.0])
-        plt.ylim([0.0, 1.05])
-        plt.xlabel('False Positive Rate')
-        plt.ylabel('True Positive Rate')
-        plt.title(f'ROC Curve for {m[4]}')
-        plt.legend(loc="lower right")
-        plt.show()
+    # Configuración del gráfico
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('Tasa de Falsos Positivos (FPR)')
+    plt.ylabel('Tasa de Verdaderos Positivos (TPR)')
+    plt.title('Curvas ROC para cada categoría')
+    plt.legend(loc="lower right")
+    plt.grid()
+    plt.show()
 
 def visualize_bow_histogram(bow, labels, cluster_names=None):
     """
-    Visualiza un histograma BoW (Bag of Words).
+    Visualitza un histograma BoW (Bag of Words).
     
-    :param bow: numpy array con los histogramas (filas: imágenes, columnas: clústeres)
-    :param labels: numpy array con las etiquetas correspondientes a cada histograma
-    :param cluster_names: lista opcional con los nombres de los clústeres
+    :param bow: array numpy amb els histogrames (files: imatges, columnes: clústers)
+    :param labels: array numpy amb les etiquetes corresponents a cada histograma
+    :param cluster_names: llista opcional amb els noms dels clústers
     """
     num_clusters = bow.shape[1]
     num_images = bow.shape[0]
     colors=None
-    # Calculamos la media del histograma para todas las imágenes
     mean_histogram = np.mean(bow, axis=0)
 
-    # Etiquetas para los clústeres
     if cluster_names is None:
         cluster_names = [f"Cluster {i}" for i in range(num_clusters)]
     if colors is None:
         colors = [plt.cm.tab20(i / num_clusters) for i in range(num_clusters)]
 
-    # Crear el gráfico de barras
     plt.figure(figsize=(10, 6))
     plt.bar(range(num_clusters), mean_histogram, tick_label=cluster_names, color=colors)
     plt.xlabel("Visual Words")
@@ -200,40 +241,35 @@ def visualize_bow_histogram(bow, labels, cluster_names=None):
     plt.show()
 
 def main():
-    # models, y_val = execute_models()
-    # print(models)
-    # # nom_models = ["logistic_regression", "svc"] 
-    # df = show_metrics(models, y_val)
-    # print(df)
-    # # show_confusion_matrix(models, bow_val, y_val)
-
-    # # show_roc_curve(models, bow_val, y_val)
-    # def main():
-    # sift = True
+    model = "xgboost" #"logistic", "svc", "random_forest", "xgboost"
+    n_clusters = 64
+    num_dades = 300
+    num_directoris = 2
+    test_size = 0.2
+    val_size = 0
+    class_multiclass = "ovr" #"ovr", "ovo"
+  
     print("Carregant i processant el dataset...")
     dataset_path = 'data/Cervical_Cancer'
-    data, labels = load_dataset(dataset_path)
+    data, labels = load_dataset(dataset_path, num_dades, num_directoris)
     labels_encoded = encode_labels(labels)
-    X_train, y_train, X_val, y_val, X_test, y_test = train_test(data, labels_encoded)
+    X_train, y_train, X_test, y_test, _, _ = train_test(data, labels_encoded, test_size=test_size, val_size=val_size)
     print("Extracció de característiques SIFT i creant histograma BoW...")
-    
-    # try:
-    #     with open("data/bow_sift_train.pkl", 'rb') as f:
-    #         bow_train = pickle.load(f)
-  
-    #     with open("data/bow_sift_test.pkl", 'rb') as f:
-    #         bow_test = pickle.load(f)
-    # except:
     print("Creant els BoW...")
     sift  = cv2.xfeatures2d.SIFT_create()
 
     vectors_train, train_features = extract_sift_features(sift, X_train, y_train)
-    _, val_features = extract_sift_features(sift, X_val, y_val)
+    _, test_features = extract_sift_features(sift, X_test, y_test)
 
-    kmeans = train_visual_words(vectors_train, 10)
+    kmeans = train_visual_words(vectors_train, n_clusters)
 
     bow_train, labels_train = bag_of_words_histogram(train_features, kmeans)
-    visualize_bow_histogram(bow_train, labels_train)
+    bow_test, labels_test = bag_of_words_histogram(test_features, kmeans)
+
+    # visualize_bow_histogram(bow_train, labels_train)
+    model, best_params = train_xgboost(bow_train, labels_train, class_multiclass)
+    show_roc_curve(model, bow_test, labels_test)
+        
 
 if __name__ == '__main__':
     main()

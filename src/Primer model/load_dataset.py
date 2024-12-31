@@ -6,7 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 import numpy as np
 
 
-def load_dataset(path, num_directoris, num_dades):
+def load_dataset(path, num_dades, num_directoris):
     """
     Es carrega el dataset de les imatges i es transformen en escala de grisos.
     Es crea un pickel amb les imatges i les etiquetes.
@@ -15,7 +15,7 @@ def load_dataset(path, num_directoris, num_dades):
     :return: np.array amb les imatges i una llista amb les etiquetes
     """
     try:
-        with open('data/dataset2.pkl', 'rb') as f:
+        with open('data/dataset4.pkl', 'rb') as f:
             dataset, labels = pickle.load(f)  # Assegurem que es carreguen tant dataset com labels
     except:
         dataset = []
@@ -34,7 +34,7 @@ def load_dataset(path, num_directoris, num_dades):
                         labels.append(dir_name)
 
         # Guarda tant dataset com labels al pickle
-        with open('data/dataset2.pkl', 'wb') as f:
+        with open('data/dataset4.pkl', 'wb') as f:
             pickle.dump((dataset, labels), f)
     return np.array(dataset), labels
 
