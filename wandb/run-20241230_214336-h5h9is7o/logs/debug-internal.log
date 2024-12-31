@@ -1,0 +1,17 @@
+{"time":"2024-12-30T21:43:37.3395508+01:00","level":"INFO","msg":"using version","core version":"0.19.1"}
+{"time":"2024-12-30T21:43:37.340624+01:00","level":"INFO","msg":"created symlink","path":"C:\\Users\\Grau\\Documents\\Grau\\uni\\ProyectoAC\\ACproject-15-grup\\wandb\\run-20241230_214336-h5h9is7o\\logs\\debug-core.log"}
+{"time":"2024-12-30T21:43:37.5236667+01:00","level":"INFO","msg":"created new stream","id":"h5h9is7o"}
+{"time":"2024-12-30T21:43:37.5243452+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"h5h9is7o"}
+{"time":"2024-12-30T21:43:37.5243452+01:00","level":"INFO","msg":"stream: started","id":"h5h9is7o"}
+{"time":"2024-12-30T21:43:37.5249408+01:00","level":"INFO","msg":"sender: started","stream_id":"h5h9is7o"}
+{"time":"2024-12-30T21:43:37.5255532+01:00","level":"INFO","msg":"handler: started","stream_id":"h5h9is7o"}
+{"time":"2024-12-30T21:43:38.4080562+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-30T22:05:43.0503889+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-30T22:05:43.0601742+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-30T22:05:44.0308727+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-30T22:05:44.0744167+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history steps 0-0, summary, console lines 1-10","runtime_seconds":0.0430147}],"total_operations":1}}
+{"time":"2024-12-30T22:05:45.3445274+01:00","level":"INFO","msg":"stream: closing","id":"h5h9is7o"}
+{"time":"2024-12-30T22:05:45.3445274+01:00","level":"INFO","msg":"handler: closed","stream_id":"h5h9is7o"}
+{"time":"2024-12-30T22:05:45.3445274+01:00","level":"INFO","msg":"sender: closed","stream_id":"h5h9is7o"}
+{"time":"2024-12-30T22:05:45.3445274+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"h5h9is7o"}
+{"time":"2024-12-30T22:05:45.3455846+01:00","level":"INFO","msg":"stream: closed","id":"h5h9is7o"}
