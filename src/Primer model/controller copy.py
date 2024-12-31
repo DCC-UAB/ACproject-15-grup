@@ -13,11 +13,14 @@ import cv2
 from visualitzacions import get_metrics
 import wandb
 from dense_sampling import dense_sampling
+import pickle
+from visualitzacions import show_roc_curve
 
 
 def main():
     wandb.login(key="e04f0be8ca1d2a05e435577f94aad6b2d9ad31bb")
-    models = ["logistic", "svc", "random_forest", "xgboost"]
+    # models = ["logistic", "svc", "random_forest", "xgboost"]
+    models = ["xgboost"]
     detector = "sift" #"dense"
     n_clusters = [32, 64, 128, 256, 512, 1024]
     num_dades = 5000
@@ -30,7 +33,7 @@ def main():
   
     print("Carregant i processant el dataset...")
     dataset_path = 'data/Cervical_Cancer'
-    data, labels = load_dataset(dataset_path)
+    data, labels = load_dataset(dataset_path, num_dades, num_directoris)
     labels_encoded = encode_labels(labels)
     X_train, y_train, X_test, y_test, _, _ = train_test(data, labels_encoded, test_size=test_size, val_size=val_size)
     
@@ -50,15 +53,25 @@ def main():
                             "test_size": test_size,
                             "val_size": val_size
                     })
-        
-                vectors_train, train_features = extract_sift_features(sift, X_train, y_train)
-                _, val_features = extract_sift_features(sift, X_test, y_test)
-                print("Característiques SIFT extretes\n")
-                print("Creant els BoW's...")
-                kmeans = train_visual_words(vectors_train, cluster)
 
-                bow_train, labels_train = bag_of_words_histogram(train_features, kmeans)
-                bow_test, labels_test = bag_of_words_histogram(val_features, kmeans)
+                try:
+                    with open("data/bow_sift_train.pkl", 'rb') as f:
+                        bow_train, labels_train = pickle.load(f)
+                    with open("data/bow_sift_test.pkl", 'rb') as f:
+                        bow_test, labels_test = pickle.load(f) 
+                except:
+                    vectors_train, train_features = extract_sift_features(sift, X_train, y_train)
+                    _, val_features = extract_sift_features(sift, X_test, y_test)
+                    print("Característiques SIFT extretes\n")
+                    print("Creant els BoW's...")
+                    kmeans = train_visual_words(vectors_train, cluster)
+
+                    bow_train, labels_train = bag_of_words_histogram(train_features, kmeans)
+                    bow_test, labels_test = bag_of_words_histogram(val_features, kmeans)
+                    with open("data/bow_sift_train.pkl", 'wb') as f:
+                        pickle.dump((bow_train, labels_train), f)
+                    with open("data/bow_sift_test.pkl", 'wb') as f:
+                        pickle.dump((bow_test, labels_test), f)
                 print("BoW's creats\n")
                 print("\nEntrenant el model...")
 
@@ -71,7 +84,7 @@ def main():
                 elif model_ == "xgboost":
                     model, best_params = train_xgboost(bow_train, labels_train)
                 print("Model entrenat\n")
-
+                show_roc_curve(model, bow_test, labels_test)
                 prediccio = model.predict(bow_test)
                 print("Confusion Matrix: ",metrics.confusion_matrix(labels_test, prediccio))
                 print("Accuracy: ",metrics.accuracy_score(labels_test, prediccio))
