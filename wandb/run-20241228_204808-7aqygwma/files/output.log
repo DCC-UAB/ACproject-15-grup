@@ -1,0 +1,13 @@
+
+Entrenant el model...
+Model entrenat
+
+Confusion Matrix:  [[520 173 142 124  41]
+ [182 502 116  25 180]
+ [139  85 622  53  86]
+ [ 15   4  31 929  10]
+ [ 30  78  37  28 848]]
+Accuracy:  0.6842
+Params:  {'C': 0.01, 'penalty': 'l2', 'solver': 'newton-cg'}
+
+Visualitzant les mètriques...
