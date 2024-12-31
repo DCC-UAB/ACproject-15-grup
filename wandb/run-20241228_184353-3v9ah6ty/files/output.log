@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/david/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py", line 125, in <module>
+    main()
+  File "/Users/david/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py", line 59, in main
+    vectors_train, train_features = extract_sift_features(sift, X_train, y_train)
+  File "/Users/david/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/sift.py", line 21, in extract_sift_features
+    _ , descriptors = sift.detectAndCompute(image, mask=None)
+KeyboardInterrupt
