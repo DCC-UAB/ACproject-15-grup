@@ -2,6 +2,7 @@ import cv2 as cv
 from load_dataset import *
 import numpy as np
 import pickle
+from collections import defaultdict
 
 
 def dense_sampling(sift, imatges, labels, pases, amplada_punt):

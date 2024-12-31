@@ -1,0 +1,10 @@
+Entrenant el model...
+/home/grau/myenv/lib/python3.12/site-packages/numpy/ma/core.py:2881: RuntimeWarning: invalid value encountered in cast
+  _data = np.array(data, dtype=dtype, copy=copy,
+confusion matrix:  [[144   5]
+ [  7 164]]
+accuracy:  0.9625
+Params:  {'bootstrap': False, 'criterion': 'entropy', 'max_depth': 20, 'n_estimators': 100}
+Overfitting =  1.0
+Resultats test =  0.9625
+Visualitzant les mètriques...

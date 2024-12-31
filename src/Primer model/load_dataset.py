@@ -6,25 +6,24 @@ from sklearn.preprocessing import LabelEncoder
 import numpy as np
 
 
-def load_dataset(path):
+def load_dataset(path, num_directoris, num_dades):
     """
-    Es carrega el dataset de les imatges de càncer uterí i es transformen en escala de grisos.
+    Es carrega el dataset de les imatges i es transformen en escala de grisos.
     Es crea un pickel amb les imatges i les etiquetes.
 
     :param path: path on es troben les imatges
     :return: np.array amb les imatges i una llista amb les etiquetes
     """
     try:
-        with open('data/dataset.pkl', 'rb') as f:
+        with open('data/dataset2.pkl', 'rb') as f:
             dataset, labels = pickle.load(f)  # Assegurem que es carreguen tant dataset com labels
     except:
         dataset = []
         labels = []
-        for root, dirs, files in os.walk(path):
-            for dir_name in dirs[:5]:  # Només agafa els primers 3 directoris
+        for root, dirs, _ in os.walk(path):
+            for dir_name in dirs[:num_directoris]:
                 folder_path = os.path.join(root, dir_name)
-                
-                for file in os.listdir(folder_path)[:2500]:  # Només agafa les primeres 200 imatges
+                for file in os.listdir(folder_path)[:num_dades]:
                     img_path = os.path.join(folder_path, file)
                     img = cv2.imread(img_path)
 
@@ -33,8 +32,9 @@ def load_dataset(path):
                         img_gray = cv2.cvtColor(img_resized, cv2.COLOR_BGR2GRAY)
                         dataset.append(img_gray)
                         labels.append(dir_name)
+
         # Guarda tant dataset com labels al pickle
-        with open('data/dataset.pkl', 'wb') as f:
+        with open('data/dataset2.pkl', 'wb') as f:
             pickle.dump((dataset, labels), f)
     return np.array(dataset), labels
 
@@ -69,21 +69,3 @@ def train_test(dataset, labels, test_size=0.2, val_size=0):
         return X_train, y_train, X_test, y_test, X_val, y_val 
     
     return X_train, y_train, X_temp, y_temp, None, None
-
-
-
-# data, labels = load_dataset('data/Cervical_Cancer')
-# print(len(data), len(labels))
-# labels_encoded = encode_labels(labels)
-
-# X_train, y_train, X_val, y_val, X_test, y_test = train_test(data, labels_encoded)
-# def count_labels(labels):
-#     return Counter(labels)
-
-# train_counts = count_labels(y_train)
-# val_counts = count_labels(y_val)
-# test_counts = count_labels(y_test)
-
-# print("Training set label counts:", train_counts)
-# print("Validation set label counts:", val_counts)
-# print("Test set label counts:", test_counts)

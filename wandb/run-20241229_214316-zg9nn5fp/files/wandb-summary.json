@@ -1,0 +1,1 @@
+{"recall":0.978125,"_step":0,"f1":0.9781200611557754,"_wandb":{"runtime":147},"_timestamp":1.7355051443083706e+09,"_runtime":147.377648319,"precision":0.97813432982401,"overfitting":1,"accuracy":0.978125}

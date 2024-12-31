@@ -1,0 +1,11 @@
+Entrenant el model...
+confusion matrix:  [[56 11  6  9  0]
+ [ 4 47  6  4  7]
+ [11  2 67  5  5]
+ [ 1  0  2 74  0]
+ [ 0  3  1  0 79]]
+accuracy:  0.8075
+Params:  {'C': 1, 'decision_function_shape': 'ovr', 'kernel': 'rbf'}
+Overfitting =  0.91375
+Resultats test =  0.8075
+Visualitzant les mètriques...
