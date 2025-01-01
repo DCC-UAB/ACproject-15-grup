@@ -10,6 +10,7 @@ from sift import *
 from bow import *
 from train_test import *
 from sklearn.preprocessing import label_binarize
+from sklearn.metrics import roc_curve, auc
 
 
 
@@ -140,69 +141,20 @@ def show_confusion_matrix(models, X_val, y_val):
             plt.show()
 
 
-
-# def show_roc_curve(models, X_val, y_val):
-#     roc_auc = []
-#     colors = ['blue', 'red', 'green', 'purple', 'orange', 'pink', 'brown', 'black', 'yellow', 'gray']
-#     y_val_bin = label_binarize(y_val, classes=[0, 1, 2])
-#     for tipus_model in models:
-#         plt.figure()
-
-#         for index, m in enumerate(tipus_model):
-#             y_pred = m[0].predict_proba(X_val)
-#             for i in range(y_val_bin.shape[1]):
-#                 fpr, tpr, thresholds = roc_curve(y_val_bin[:, i], y_pred[:, i])
-#                 roc_auc.append(auc(fpr, tpr))
-#                 plt.plot(fpr, tpr, color=colors[index], lw=2, label=f'ROC curve (AUC = {roc_auc[-1]:.2f})')
-#                 plt.plot([0, 1], [0, 1], color='gray', lw=2, linestyle='--')
-
-#                 for j, threshold in enumerate(thresholds):
-#                     plt.annotate(f'{threshold:.2f}', (fpr[j], tpr[j]), textcoords="offset points", xytext=(10,-10), ha='center')
-
-#         plt.xlim([0.0, 1.0])
-#         plt.ylim([0.0, 1.05])
-#         plt.xlabel('False Positive Rate')
-#         plt.ylabel('True Positive Rate')
-#         plt.title(f'ROC Curve for {m[4]}')
-#         plt.legend(loc="lower right")
-#         plt.show()
-
-from sklearn.metrics import roc_curve, auc
-from sklearn.preprocessing import label_binarize
-import matplotlib.pyplot as plt
-
 def show_roc_curve(model, X_val, y_val):
-    """
-    Muestra la curva ROC para un único modelo clasificador multiclase.
-    
-    Args:
-        model: Modelo entrenado con soporte para `predict_proba`.
-        X_val: Datos de validación.
-        y_val: Etiquetas de validación.
-    """
-    # Binarizar las etiquetas para One-vs-Rest
     n_classes = len(set(y_val))
     y_val_bin = label_binarize(y_val, classes=range(n_classes))
-    
-    # Colores para las curvas
     colors = ['blue', 'red', 'green', 'purple', 'orange']
-    
-    # Crear la figura
     plt.figure(figsize=(10, 8))
     roc_auc = []
-
-    # Generar curvas ROC para cada clase
     y_pred = model.predict_proba(X_val)
     for i in range(n_classes):
         fpr, tpr, thresholds = roc_curve(y_val_bin[:, i], y_pred[:, i])
         auc_score = auc(fpr, tpr)
         roc_auc.append(auc_score)
         plt.plot(fpr, tpr, color=colors[i], lw=2, label=f'Clase {i} (AUC = {auc_score:.2f})')
-
-    # Línea diagonal (clasificación aleatoria)
     plt.plot([0, 1], [0, 1], color='gray', linestyle='--', lw=2, label='Aleatorio (AUC = 0.5)')
 
-    # Configuración del gráfico
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.05])
     plt.xlabel('Tasa de Falsos Positivos (FPR)')
