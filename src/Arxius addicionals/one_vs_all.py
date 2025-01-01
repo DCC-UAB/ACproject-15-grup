@@ -116,66 +116,10 @@ def main():
             # vectors, features = dense_sampling(X_test, y_test, 15, 5, 128)
             # bow_test = bag_of_words_histogram(vectors, features, sift=False, fase="test")
 
-
-    # # Entrenem el model One-vs-All amb Logistic Regression
-    # print("\n=== Logistic Regression ===")
-    # models_lr, val_metrics_lr, test_metrics_lr = one_vs_all(
-    #     bow_train, y_train, bow_val, y_val, bow_test, y_test, classes, train_logistic_regression
-    # )
-
-    # # Entrenem el model One-vs-All amb SVC
-    # print("\n=== Support Vector Classifier ===")
-    # models_svc, val_metrics_svc, test_metrics_svc = one_vs_all(
-    #     X_train, y_train, X_val, y_val, X_test, y_test, classes, train_svc
-    # )
-    # print([max(x) for x in bow_train], len(y_train))
-    # models = train_svc(bow_train, y_train)
-    # for model in models:
-    #     print(model[0].score(bow_val, y_val), model[1])
     print(len(bow_train), len(y_train))
     model = train_logistic_regression(bow_train, y_train)
     print(model[0].score(bow_train, y_train))
     print(model[0].score(bow_val, y_val), model[1])
-
-    # Dibuixar un gràfic amb els punts i la classificacio segons SVC
-    # plt.figure(figsize=(10, 6))
-    # plt.scatter(bow_val[:, 0], bow_val[:, 1], c=models[0][0].predict(bow_val), cmap='viridis', alpha=0.7)
-    # plt.xlabel("Feature 1")
-    # plt.ylabel("Feature 2")
-    # plt.title("Visualització de les classes amb SVC")
-    # plt.colorbar()
-    # plt.tight_layout()
-    # plt.show()
-
-
-    # print("Generant gràfics de validació per Logistic Regression...")
-    # plot_all_metrics(val_metrics_lr, title_prefix="Validation (Logistic Regression)")
-
-    # # Plota les mètriques de test:
-    # print("Generant gràfics de test per Logistic Regression...")
-    # plot_all_metrics(test_metrics_lr, title_prefix="Test (Logistic Regression)")
-
-    # # Plota les mètriques de validació per SVC:
-    # print("Generant gràfics de validació per SVC...")
-    # plot_all_metrics(val_metrics_svc, title_prefix="Validation (SVC)")
-
-    # # Plota les mètriques de test per SVC:
-    # print("Generant gràfics de test per SVC...")
-    # plot_all_metrics(test_metrics_svc, title_prefix="Test (SVC)")
-
-    # # Guardem els models en fitxers dins de /data
-    # models_dir = os.path.join("data", "models")
-    # os.makedirs(models_dir, exist_ok=True)
-
-    # for classe, model in models_lr.items():
-    #     with open(os.path.join(models_dir, f"logistic_regression_{classe}.pkl"), 'wb') as f:
-    #         pickle.dump(model, f)
-    
-    # for classe, model in models_svc.items():
-    #     with open(os.path.join(models_dir, f"svc_{classe}.pkl"), 'wb') as f:
-    #         pickle.dump(model, f)
-
-    # print("\nModels guardats a la carpeta '/data/models'.")
 
 if __name__ == "__main__":
     main()
