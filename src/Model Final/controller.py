@@ -120,7 +120,7 @@ def main():
     print("Precision: ", precision)
     print("Recall: ", recall)
     print("F1: ", f1)
-    # show_roc_curve(model, bow_test, labels_test)
+    show_roc_curve(model, bow_test, labels_test)
 
 if __name__=="__main__":
     main()
