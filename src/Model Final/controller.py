@@ -34,13 +34,6 @@ def main():
     X_train, y_train, X_test, y_test, _, _ = train_test(data, labels_encoded, test_size=test_size, val_size=val_size)
     print("Extracció de característiques SIFT i creant histograma BoW...")
     
-    # try:
-    #     with open("data/bow_sift_train.pkl", 'rb') as f:
-    #         bow_train = pickle.load(f)
-  
-    #     with open("data/bow_sift_test.pkl", 'rb') as f:
-    #         bow_test = pickle.load(f)
-    # except:
     print("Creant els BoW...")
     if detector == "sift":
         sift  = cv2.xfeatures2d.SIFT_create()
@@ -88,14 +81,7 @@ def main():
         bow_train, labels_train = bag_of_words_histogram(train_features, kmeans)
         bow_test, labels_test = bag_of_words_histogram(val_features, kmeans)
 
-        # with open("data/bow_sift_train.pkl", 'wb') as f:
-        #     pickle.dump(bow_train, f)
-        # with open("data/bow_sift_test.pkl", 'wb') as f:
-        #     pickle.dump(bow_test, f)
-
     print("Entrenant el model...")
-    # print(len(bow_train), len(y_train))
-    # model, best_params = train_logistic_regression(bow_train, labels_train)
     if model == "svc":
         model, best_params = train_svc(bow_train, labels_train, classificador=class_multiclass)
     elif model == "logistic":
