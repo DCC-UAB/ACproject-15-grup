@@ -1,0 +1,17 @@
+{"time":"2024-12-28T13:26:52.110265109+01:00","level":"INFO","msg":"using version","core version":"0.19.1"}
+{"time":"2024-12-28T13:26:52.110297712+01:00","level":"INFO","msg":"created symlink","path":"/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/wandb/run-20241228_132652-cpm03l9k/logs/debug-core.log"}
+{"time":"2024-12-28T13:26:52.21828242+01:00","level":"INFO","msg":"created new stream","id":"cpm03l9k"}
+{"time":"2024-12-28T13:26:52.218306524+01:00","level":"INFO","msg":"stream: started","id":"cpm03l9k"}
+{"time":"2024-12-28T13:26:52.218397435+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"cpm03l9k"}
+{"time":"2024-12-28T13:26:52.218414075+01:00","level":"INFO","msg":"handler: started","stream_id":"cpm03l9k"}
+{"time":"2024-12-28T13:26:52.21843726+01:00","level":"INFO","msg":"sender: started","stream_id":"cpm03l9k"}
+{"time":"2024-12-28T13:26:52.618431474+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-28T13:30:02.89843093+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-28T13:30:02.899005365+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-28T13:30:03.870131957+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading config.yaml","runtime_seconds":0.250647147,"progress":"726B/726B"},{"desc":"uploading output.log","runtime_seconds":0.250636997,"progress":"296B/296B"}],"total_operations":2}}
+{"time":"2024-12-28T13:30:04.035310785+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-28T13:30:05.555621293+01:00","level":"INFO","msg":"stream: closing","id":"cpm03l9k"}
+{"time":"2024-12-28T13:30:05.555649564+01:00","level":"INFO","msg":"handler: closed","stream_id":"cpm03l9k"}
+{"time":"2024-12-28T13:30:05.555659902+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"cpm03l9k"}
+{"time":"2024-12-28T13:30:05.555673747+01:00","level":"INFO","msg":"sender: closed","stream_id":"cpm03l9k"}
+{"time":"2024-12-28T13:30:05.555733777+01:00","level":"INFO","msg":"stream: closed","id":"cpm03l9k"}

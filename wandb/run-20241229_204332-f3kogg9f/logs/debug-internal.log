@@ -1,0 +1,17 @@
+{"time":"2024-12-29T20:43:32.018058831+01:00","level":"INFO","msg":"using version","core version":"0.19.1"}
+{"time":"2024-12-29T20:43:32.018093602+01:00","level":"INFO","msg":"created symlink","path":"/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/wandb/run-20241229_204332-f3kogg9f/logs/debug-core.log"}
+{"time":"2024-12-29T20:43:32.124359862+01:00","level":"INFO","msg":"created new stream","id":"f3kogg9f"}
+{"time":"2024-12-29T20:43:32.124391654+01:00","level":"INFO","msg":"stream: started","id":"f3kogg9f"}
+{"time":"2024-12-29T20:43:32.1244092+01:00","level":"INFO","msg":"handler: started","stream_id":"f3kogg9f"}
+{"time":"2024-12-29T20:43:32.124410033+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"f3kogg9f"}
+{"time":"2024-12-29T20:43:32.124462714+01:00","level":"INFO","msg":"sender: started","stream_id":"f3kogg9f"}
+{"time":"2024-12-29T20:43:32.684038126+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-29T20:44:28.780845774+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-29T20:44:28.781215351+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-29T20:44:29.621867122+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-29T20:44:29.781804124+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history steps 0-0, summary, console lines 1-7","runtime_seconds":0.159803947}],"total_operations":1}}
+{"time":"2024-12-29T20:44:31.271411732+01:00","level":"INFO","msg":"stream: closing","id":"f3kogg9f"}
+{"time":"2024-12-29T20:44:31.271427958+01:00","level":"INFO","msg":"handler: closed","stream_id":"f3kogg9f"}
+{"time":"2024-12-29T20:44:31.271438742+01:00","level":"INFO","msg":"sender: closed","stream_id":"f3kogg9f"}
+{"time":"2024-12-29T20:44:31.27143668+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"f3kogg9f"}
+{"time":"2024-12-29T20:44:31.271497308+01:00","level":"INFO","msg":"stream: closed","id":"f3kogg9f"}

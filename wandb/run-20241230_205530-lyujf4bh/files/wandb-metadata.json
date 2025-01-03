@@ -1,0 +1,42 @@
+{
+  "os":  "Linux-6.8.0-51-generic-x86_64-with-glibc2.39",
+  "python":  "CPython 3.12.3",
+  "startedAt":  "2024-12-30T19:55:30.380288Z",
+  "program":  "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py",
+  "codePath":  "src/Primer model/controller.py",
+  "git":  {
+    "remote":  "https://Gcladera:@github.com/DCC-UAB/ACproject-15-grup.git",
+    "commit":  "ea053cd640a5acfa52984c200f79b52a781ef3c4"
+  },
+  "email":  "grau.cladera@autonoma.cat",
+  "root":  "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup",
+  "host":  "grau-HP-Pavilion-x360-Convertible-14-cd0xxx",
+  "executable":  "/home/grau/myenv/bin/python",
+  "codePathLocal":  "src/Primer model/controller.py",
+  "cpu_count":  4,
+  "cpu_count_logical":  8,
+  "gpu":  "NVIDIA GeForce MX130",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "81978257408",
+      "used":  "74634272768"
+    }
+  },
+  "memory":  {
+    "total":  "8056094720"
+  },
+  "cpu":  {
+    "count":  4,
+    "countLogical":  8
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA GeForce MX130",
+      "memoryTotal":  "4294967296",
+      "cudaCores":  384,
+      "architecture":  "Maxwell"
+    }
+  ],
+  "cudaVersion":  "12.4"
+}

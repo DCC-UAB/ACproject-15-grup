@@ -1,0 +1,11 @@
+Entrenant el model...
+confusion matrix:  [[442  27  21  11  15]
+ [ 31 399  26   5  40]
+ [ 26   9 448   9  17]
+ [ 11   3   4 475   1]
+ [ 11  23  16   1 429]]
+accuracy:  0.8772
+Params:  None
+Overfitting =  0.9941
+Resultats test =  0.8772
+Visualitzant les mètriques...

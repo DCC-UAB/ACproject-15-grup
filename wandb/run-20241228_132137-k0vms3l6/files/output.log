@@ -1,0 +1,41 @@
+Entrenant el model...
+Traceback (most recent call last):
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py", line 125, in <module>
+    main()
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py", line 102, in main
+    model, best_params = train_logistic_regression(bow_train, labels_train)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/train_test.py", line 28, in train_logistic_regression
+    best_params, model = grid_search(X_train, y_train, lr, parameters)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/train_test.py", line 19, in grid_search
+    grid_search_cv.fit(X_train, y_train)
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/model_selection/_search.py", line 1019, in fit
+    self._run_search(evaluate_candidates)
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/model_selection/_search.py", line 1573, in _run_search
+    evaluate_candidates(ParameterGrid(self.param_grid))
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/model_selection/_search.py", line 996, in evaluate_candidates
+    _warn_or_raise_about_fit_failures(out, self.error_score)
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/model_selection/_validation.py", line 529, in _warn_or_raise_about_fit_failures
+    raise ValueError(all_fits_failed_message)
+ValueError:
+All the 3 fits failed.
+It is very likely that your model is misconfigured.
+You can try to debug the error by setting error_score='raise'.
+
+Below are more details about the failures:
+--------------------------------------------------------------------------------
+3 fits failed with the following error:
+Traceback (most recent call last):
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/model_selection/_validation.py", line 888, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/base.py", line 1466, in wrapper
+    estimator._validate_params()
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/base.py", line 666, in _validate_params
+    validate_parameter_constraints(
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/utils/_param_validation.py", line 95, in validate_parameter_constraints
+    raise InvalidParameterError(
+sklearn.utils._param_validation.InvalidParameterError: The 'max_iter' parameter of LogisticRegression must be an int in the range [0, inf). Got None instead.

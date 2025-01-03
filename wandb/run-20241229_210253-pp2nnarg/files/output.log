@@ -1,0 +1,66 @@
+Exception ignored on calling ctypes callback function: <function ThreadpoolController._find_libraries_with_dl_iterate_phdr.<locals>.match_library_callback at 0x79cbff329440>
+Traceback (most recent call last):
+  File "/home/grau/myenv/lib/python3.12/site-packages/threadpoolctl.py", line 1005, in match_library_callback
+    self._make_controller_from_path(filepath)
+  File "/home/grau/myenv/lib/python3.12/site-packages/threadpoolctl.py", line 1134, in _make_controller_from_path
+    filepath = _realpath(filepath)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/grau/myenv/lib/python3.12/site-packages/threadpoolctl.py", line 548, in _realpath
+    return os.path.realpath(filepath)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen posixpath>", line 435, in realpath
+  File "<frozen posixpath>", line 470, in _joinrealpath
+KeyboardInterrupt:
+Entrenant el model...
+Traceback (most recent call last):
+  File "/home/grau/myenv/lib/python3.12/site-packages/joblib/parallel.py", line 1650, in _get_outputs
+    yield from self._retrieve()
+  File "/home/grau/myenv/lib/python3.12/site-packages/joblib/parallel.py", line 1762, in _retrieve
+    time.sleep(0.01)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py", line 125, in <module>
+    main()
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py", line 106, in main
+    model, best_params = train_xgboost(bow_train, labels_train)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/train_test.py", line 58, in train_xgboost
+    best_params, model = grid_search(X_train, y_train, xgb_model, parameters)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/train_test.py", line 19, in grid_search
+    grid_search_cv.fit(X_train, y_train)
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/model_selection/_search.py", line 1019, in fit
+    self._run_search(evaluate_candidates)
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/model_selection/_search.py", line 1573, in _run_search
+    evaluate_candidates(ParameterGrid(self.param_grid))
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/model_selection/_search.py", line 965, in evaluate_candidates
+    out = parallel(
+          ^^^^^^^^^
+  File "/home/grau/myenv/lib/python3.12/site-packages/sklearn/utils/parallel.py", line 74, in __call__
+    return super().__call__(iterable_with_config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/grau/myenv/lib/python3.12/site-packages/joblib/parallel.py", line 2007, in __call__
+    return output if self.return_generator else list(output)
+                                                ^^^^^^^^^^^^
+  File "/home/grau/myenv/lib/python3.12/site-packages/joblib/parallel.py", line 1703, in _get_outputs
+    self._abort()
+  File "/home/grau/myenv/lib/python3.12/site-packages/joblib/parallel.py", line 1614, in _abort
+    backend.abort_everything(ensure_ready=ensure_ready)
+  File "/home/grau/myenv/lib/python3.12/site-packages/joblib/_parallel_backends.py", line 620, in abort_everything
+    self._workers.terminate(kill_workers=True)
+  File "/home/grau/myenv/lib/python3.12/site-packages/joblib/executor.py", line 75, in terminate
+    self.shutdown(kill_workers=kill_workers)
+  File "/home/grau/myenv/lib/python3.12/site-packages/joblib/externals/loky/process_executor.py", line 1303, in shutdown
+    executor_manager_thread.join()
+  File "/usr/lib/python3.12/threading.py", line 1147, in join
+    self._wait_for_tstate_lock()
+  File "/usr/lib/python3.12/threading.py", line 1167, in _wait_for_tstate_lock
+    if lock.acquire(block, timeout):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

@@ -1,0 +1,9 @@
+Entrenant el model...
+confusion matrix:  [[84 12  8]
+ [ 9 74  3]
+ [12  8 90]]
+accuracy:  0.8266666666666667
+Params:  None
+Overfitting =  1.0
+Resultats test =  0.8266666666666667
+Visualitzant les mètriques...

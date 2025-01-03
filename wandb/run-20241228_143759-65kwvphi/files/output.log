@@ -1,0 +1,13 @@
+Entrenant el model...
+confusion matrix:  [[59  0  1  4  1]
+ [48  0  0  0  1]
+ [59  0  3  1  1]
+ [47  0  1 18  0]
+ [51  0  0  1  4]]
+accuracy:  0.28
+Params:  {'C': 0.1, 'solver': 'liblinear'}
+Overfitting =  0.6891666666666667
+Resultats test =  0.28
+Visualitzant les mètriques...
+/home/grau/myenv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))

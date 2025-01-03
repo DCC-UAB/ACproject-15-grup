@@ -1,0 +1,17 @@
+{"time":"2024-12-30T20:41:40.003567+01:00","level":"INFO","msg":"using version","core version":"0.19.1"}
+{"time":"2024-12-30T20:41:40.003567+01:00","level":"INFO","msg":"created symlink","path":"C:\\Users\\Grau\\Documents\\Grau\\uni\\ProyectoAC\\ACproject-15-grup\\wandb\\run-20241230_204139-uyssdk82\\logs\\debug-core.log"}
+{"time":"2024-12-30T20:41:42.6618548+01:00","level":"INFO","msg":"created new stream","id":"uyssdk82"}
+{"time":"2024-12-30T20:41:42.6628924+01:00","level":"INFO","msg":"stream: started","id":"uyssdk82"}
+{"time":"2024-12-30T20:41:42.6629075+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"uyssdk82"}
+{"time":"2024-12-30T20:41:42.6634204+01:00","level":"INFO","msg":"sender: started","stream_id":"uyssdk82"}
+{"time":"2024-12-30T20:41:42.6634204+01:00","level":"INFO","msg":"handler: started","stream_id":"uyssdk82"}
+{"time":"2024-12-30T20:41:43.2293392+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-30T21:42:03.8984017+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-30T21:42:03.9061162+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-30T21:42:04.6916117+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-30T21:42:04.9024085+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history steps 0-0, summary, console lines 1-10","runtime_seconds":0.2107485}],"total_operations":1}}
+{"time":"2024-12-30T21:42:05.9538435+01:00","level":"INFO","msg":"stream: closing","id":"uyssdk82"}
+{"time":"2024-12-30T21:42:05.9538435+01:00","level":"INFO","msg":"handler: closed","stream_id":"uyssdk82"}
+{"time":"2024-12-30T21:42:05.9543855+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"uyssdk82"}
+{"time":"2024-12-30T21:42:05.9548878+01:00","level":"INFO","msg":"sender: closed","stream_id":"uyssdk82"}
+{"time":"2024-12-30T21:42:05.9554694+01:00","level":"INFO","msg":"stream: closed","id":"uyssdk82"}

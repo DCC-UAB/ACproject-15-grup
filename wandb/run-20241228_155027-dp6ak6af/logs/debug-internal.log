@@ -1,0 +1,16 @@
+{"time":"2024-12-28T15:50:27.966895148+01:00","level":"INFO","msg":"using version","core version":"0.19.1"}
+{"time":"2024-12-28T15:50:27.966919916+01:00","level":"INFO","msg":"created symlink","path":"/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/wandb/run-20241228_155027-dp6ak6af/logs/debug-core.log"}
+{"time":"2024-12-28T15:50:28.075589633+01:00","level":"INFO","msg":"created new stream","id":"dp6ak6af"}
+{"time":"2024-12-28T15:50:28.075634699+01:00","level":"INFO","msg":"stream: started","id":"dp6ak6af"}
+{"time":"2024-12-28T15:50:28.075669945+01:00","level":"INFO","msg":"handler: started","stream_id":"dp6ak6af"}
+{"time":"2024-12-28T15:50:28.075924997+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"dp6ak6af"}
+{"time":"2024-12-28T15:50:28.075924583+01:00","level":"INFO","msg":"sender: started","stream_id":"dp6ak6af"}
+{"time":"2024-12-28T15:50:28.353049271+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-28T15:50:28.623255428+01:00","level":"INFO","msg":"stream: closing","id":"dp6ak6af"}
+{"time":"2024-12-28T15:50:28.623291665+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-28T15:50:28.623705314+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-28T15:50:29.594631533+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-28T15:50:30.106071823+01:00","level":"INFO","msg":"handler: closed","stream_id":"dp6ak6af"}
+{"time":"2024-12-28T15:50:30.106131339+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"dp6ak6af"}
+{"time":"2024-12-28T15:50:30.106163609+01:00","level":"INFO","msg":"sender: closed","stream_id":"dp6ak6af"}
+{"time":"2024-12-28T15:50:30.106188085+01:00","level":"INFO","msg":"stream: closed","id":"dp6ak6af"}

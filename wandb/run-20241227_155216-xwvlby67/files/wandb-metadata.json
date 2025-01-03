@@ -1,0 +1,31 @@
+{
+  "os": "Windows-10-10.0.19045-SP0",
+  "python": "CPython 3.12.8",
+  "startedAt": "2024-12-27T14:52:17.013942Z",
+  "program": "c:\\Users\\Grau\\Documents\\Grau\\uni\\ProyectoAC\\ACproject-15-grup\\src\\Primer model\\controller copy.py",
+  "codePath": "src\\Primer model\\controller copy.py",
+  "git": {
+    "remote": "https://github.com/DCC-UAB/ACproject-15-grup.git",
+    "commit": "a551abd087dd16f2dcea98891a5720a6d3e88779"
+  },
+  "email": "grau.cladera@autonoma.cat",
+  "root": "C:\\Users\\Grau\\Documents\\Grau\\uni\\ProyectoAC\\ACproject-15-grup",
+  "host": "JORDI-HP",
+  "executable": "C:\\Users\\Grau\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\\python.exe",
+  "codePathLocal": "src\\Primer model\\controller copy.py",
+  "cpu_count": 4,
+  "cpu_count_logical": 4,
+  "disk": {
+    "/": {
+      "total": "499415773184",
+      "used": "348451876864"
+    }
+  },
+  "memory": {
+    "total": "8571609088"
+  },
+  "cpu": {
+    "count": 4,
+    "countLogical": 4
+  }
+}

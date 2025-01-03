@@ -1,0 +1,34 @@
+Característiques SIFT extretes
+
+Creant els BoW's...
+BoW's creats
+
+
+Entrenant el model...
+Model entrenat
+C:\Users\Grau\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\sklearn\utils\_tags.py:354: FutureWarning: The XGBClassifier or classes from which it inherits use `_get_tags` and `_more_tags`. Please define the `__sklearn_tags__` method, or inherit from `sklearn.base.BaseEstimator` and/or other appropriate mixins such as `sklearn.base.TransformerMixin`, `sklearn.base.ClassifierMixin`, `sklearn.base.RegressorMixin`, and `sklearn.base.OutlierMixin`. From scikit-learn 1.7, not defining `__sklearn_tags__` will raise an error.
+  warnings.warn(
+Traceback (most recent call last):
+  File "c:\Users\Grau\Documents\Grau\uni\ProyectoAC\ACproject-15-grup\src\Primer model\controller copy.py", line 150, in <module>
+    main()
+  File "c:\Users\Grau\Documents\Grau\uni\ProyectoAC\ACproject-15-grup\src\Primer model\controller copy.py", line 75, in main
+    prediccio = model.predict(bow_test)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Grau\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\sklearn\multiclass.py", line 495, in predict
+    check_is_fitted(self)
+  File "C:\Users\Grau\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\sklearn\utils\validation.py", line 1751, in check_is_fitted
+    tags = get_tags(estimator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Grau\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\sklearn\utils\_tags.py", line 396, in get_tags
+    tags = estimator.__sklearn_tags__()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Grau\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\sklearn\multiclass.py", line 603, in __sklearn_tags__
+    tags.input_tags.pairwise = get_tags(self.estimator).input_tags.pairwise
+                               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Grau\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\sklearn\utils\_tags.py", line 405, in get_tags
+    sklearn_tags_provider[klass] = klass.__sklearn_tags__(estimator)  # type: ignore[attr-defined]
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Grau\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\sklearn\base.py", line 540, in __sklearn_tags__
+    tags = super().__sklearn_tags__()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'super' object has no attribute '__sklearn_tags__'

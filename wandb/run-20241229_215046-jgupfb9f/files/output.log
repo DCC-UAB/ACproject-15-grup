@@ -1,0 +1,12 @@
+Entrenant el model...
+/home/grau/myenv/lib/python3.12/site-packages/sklearn/linear_model/_sag.py:349: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+/home/grau/myenv/lib/python3.12/site-packages/sklearn/linear_model/_sag.py:349: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+confusion matrix:  [[135  14]
+ [ 21 150]]
+accuracy:  0.890625
+Params:  {'C': 0.1, 'penalty': 'l2', 'solver': 'saga'}
+Overfitting =  0.89609375
+Resultats test =  0.890625
+Visualitzant les mètriques...

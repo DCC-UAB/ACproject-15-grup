@@ -1,0 +1,11 @@
+Entrenant el model...
+confusion matrix:  [[490  11   7   3   5]
+ [ 20 452  10   1  18]
+ [ 12   5 484   4   4]
+ [  6   2   0 486   0]
+ [  3   6   4   1 466]]
+accuracy:  0.9512
+Params:  None
+Overfitting =  1.0
+Resultats test =  0.9512
+Visualitzant les mètriques...

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py", line 125, in <module>
+    main()
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/controller.py", line 83, in main
+    vectors_train, train_features = dense_sampling(sift, X_train, y_train, pases, amplada_punt)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/src/Primer model/dense_sampling.py", line 27, in dense_sampling
+    categories = defaultdict(list) #Diccionari de llistes a on guardem la categoria de cada feature
+                 ^^^^^^^^^^^
+NameError: name 'defaultdict' is not defined

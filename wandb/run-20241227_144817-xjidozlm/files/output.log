@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "c:\Users\Grau\Documents\Grau\uni\ProyectoAC\ACproject-15-grup\src\Primer model\controller copy.py", line 150, in <module>
+    main()
+  File "c:\Users\Grau\Documents\Grau\uni\ProyectoAC\ACproject-15-grup\src\Primer model\controller copy.py", line 54, in main
+    vectors_train, train_features = extract_sift_features(sift, X_train, y_train)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Grau\Documents\Grau\uni\ProyectoAC\ACproject-15-grup\src\Primer model\sift.py", line 27, in extract_sift_features
+    return vector.astype(np.float32), categories
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 5.48 GiB for an array with shape (11488442, 128) and data type float32

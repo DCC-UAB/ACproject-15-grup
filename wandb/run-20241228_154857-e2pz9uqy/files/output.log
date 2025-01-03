@@ -1,0 +1,9 @@
+Entrenant el model...
+confusion matrix:  [[86  8 10]
+ [ 6 76  4]
+ [12  7 91]]
+accuracy:  0.8433333333333334
+Params:  {'bootstrap': False, 'criterion': 'entropy', 'max_depth': 20, 'n_estimators': 100}
+Overfitting =  1.0
+Resultats test =  0.8433333333333334
+Visualitzant les mètriques...

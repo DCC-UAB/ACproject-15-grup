@@ -1,0 +1,8 @@
+Entrenant el model...
+confusion matrix:  [[81 23]
+ [33 63]]
+accuracy:  0.72
+Params:  {'C': 0.001, 'penalty': 'l2', 'solver': 'lbfgs'}
+Overfitting =  0.7725
+Resultats test =  0.72
+Visualitzant les mètriques...

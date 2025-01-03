@@ -1,0 +1,17 @@
+{"time":"2024-12-29T21:47:49.390502638+01:00","level":"INFO","msg":"using version","core version":"0.19.1"}
+{"time":"2024-12-29T21:47:49.390551012+01:00","level":"INFO","msg":"created symlink","path":"/home/grau/github-classroom/DCC-UAB/ACproject-15-grup/wandb/run-20241229_214749-itx66cum/logs/debug-core.log"}
+{"time":"2024-12-29T21:47:49.497790821+01:00","level":"INFO","msg":"created new stream","id":"itx66cum"}
+{"time":"2024-12-29T21:47:49.4978185+01:00","level":"INFO","msg":"stream: started","id":"itx66cum"}
+{"time":"2024-12-29T21:47:49.497862562+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"itx66cum"}
+{"time":"2024-12-29T21:47:49.497873929+01:00","level":"INFO","msg":"handler: started","stream_id":"itx66cum"}
+{"time":"2024-12-29T21:47:49.497918735+01:00","level":"INFO","msg":"sender: started","stream_id":"itx66cum"}
+{"time":"2024-12-29T21:47:49.792646916+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-29T21:49:54.172792429+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-29T21:49:54.173533375+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-29T21:49:55.01251787+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-29T21:49:55.173854886+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history steps 0-0, summary, console lines 1-9","runtime_seconds":0.161193942}],"total_operations":1}}
+{"time":"2024-12-29T21:49:56.33062185+01:00","level":"INFO","msg":"stream: closing","id":"itx66cum"}
+{"time":"2024-12-29T21:49:56.330639247+01:00","level":"INFO","msg":"handler: closed","stream_id":"itx66cum"}
+{"time":"2024-12-29T21:49:56.330647504+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"itx66cum"}
+{"time":"2024-12-29T21:49:56.330652049+01:00","level":"INFO","msg":"sender: closed","stream_id":"itx66cum"}
+{"time":"2024-12-29T21:49:56.330975287+01:00","level":"INFO","msg":"stream: closed","id":"itx66cum"}

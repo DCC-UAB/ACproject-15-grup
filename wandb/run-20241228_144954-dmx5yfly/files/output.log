@@ -1,0 +1,9 @@
+Entrenant el model...
+confusion matrix:  [[ 8 22  6]
+ [ 8 22 11]
+ [ 7 14 22]]
+accuracy:  0.43333333333333335
+Params:  {'C': 0.1, 'solver': 'liblinear'}
+Overfitting =  0.7875
+Resultats test =  0.43333333333333335
+Visualitzant les mètriques...
